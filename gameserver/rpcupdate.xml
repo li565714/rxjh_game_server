@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<application>
+
+	<javaconfig srcdir="./src"
+	/>
+	<cppconfig srcdir="../../gclient/gclient" sbeandir="." rpcdir="."
+	/>
+	<luaconfig srcdir="../../../artres/script"
+	/>
+	
+</application>

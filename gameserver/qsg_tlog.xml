@@ -1,0 +1,1609 @@
+<metalib tagsetversion="1" name="Log" version="2">
+  
+  <!--
+  ////////////////////////////////////////////////////////
+ 该TLOG文档说明：
+   1.该XML只针对第一类数据，用于TLOG开发。
+   2.表与字段说明。 表与字段desc列里面说明可选或必填。 
+   3.注意事项。
+     A>增删字段。TLOG XML版本确定并接入TDW后，不能删除字段，增加字段在表结尾增加。
+     B>数据类型。同种数据类型可变更。int类型可以转换string,但string 不能转int.
+   4.表名与字段名尽可能与本XML模板保持一致，方便维护。 
+  /////////////////////////////////////////////////////////
+   --> 
+  
+  <!--*****************************************************************
+  //////////////////////////////////////////////////////////////G/////
+  //////////////////第一类走tlog流水数据/////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+  ********************************************************************-->
+  
+ 
+   <!--//////////////////////////////////////////////
+	///////用户注册表///////////////////////////////
+   /////////////////////////////////////////////////-->
+  <!-- <struct  name="UserRegister"  version="1"  index="vUId,iGameSvrId,vChannel,dtEventTime" desc="(可选)玩家注册">
+    <entry  name="dtEventTime"		type="datetime"					                      desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+    <entry  name="iSequence"		type="int"											  desc="(可选)同一个服务器上一段时间内唯一的事件序号,循环使用" />
+    <entry  name="iGameSvrId"		type="int"		                                      desc="(必填)登录的游戏服务器编号" />
+    <entry  name="vGameAppId"		type="string"		size="64"	defaultvalue="NULL"	  desc="(必填)游戏APpId"/>
+    <entry  name="vChannel"			type="string"		size="64"						  desc="(必填)用户channel名" />
+    <entry  name="vUId"			    type="string"		size="64"						  desc="(必填)用户UId号" />>
+    <entry  name="vLoginIP"	        type="string"		size="64"	defaultvalue="NULL"	  desc="(必填)登录渠道"/>
+    <entry  name="vMacAddr"	        type="string"		size="64"	defaultvalue="NULL"	  desc="(必填)mac地址"/>
+    <entry  name="vDeviceId"		type="string"		size="64"	defaultvalue="NULL"	  desc="(可选)设备Id"/>
+    <entry  name="vSystemSoftware"	type="string"		size="64"	defaultvalue="NULL"   desc="(可选)移动终端操作系统版本"/>
+    <entry  name="vSystemHardware"	type="string"		size="64"	defaultvalue="NULL"   desc="(可选)移动终端机型"/>
+    <entry  name="vCpuHardware"		type="string"		size="64"	defaultvalue="NULL"   desc="(可选)cpu类型|频率|核数"/>
+    <entry  name="vNetwork"			type="int"		                defaultvalue="0"      desc="(可选)WIFI/2G/3G/4G"/>
+    <entry  name="iScreenWidth"		type="int"						defaultvalue="0"	  desc="(可选)显示屏宽度"/>
+    <entry  name="iScreenHight"		type="int"						defaultvalue="0"	  desc="(可选)显示屏高度"/>
+    <entry  name="fDensity"			type="float"					defaultvalue="0"	  desc="(可选)像素密度"/>
+  </struct>-->
+  
+  <!--//////////////////////////////////////////////
+	///////用户登录表///////////////////////////////
+   /////////////////////////////////////////////////-->
+  <!-- 
+    <struct  name="UserLogin"  version="1" index="vUId,iGameSvrId,vChannel,dtEventTime" desc="(必填)玩家登陆">
+    <entry  name="dtEventTime"		type="datetime"											desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+    <entry  name="iSequence"		type="int"											    desc="(可选)同一个服务器上一段时间内唯一的事件序号" />
+    <entry  name="iGameSvrId"		type="int"		                                        desc="(必填)登录的游戏服务器编号" />
+    <entry  name="vGameAppId"		type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+    <entry  name="vChannel"			type="string"		size="64"						    desc="(必填)用户channel名" />
+    <entry  name="vUId"			    type="string"		size="64"						    desc="(必填)用户UId号" />
+    <entry  name="vClientVersion"	type="string"		size="64"	defaultvalue="NULL"		desc="(必填)客户端版本"/>
+    <entry  name="vLoginIP"	        type="string"		size="64"	defaultvalue="NULL"		desc="(必填)登录渠道"/>
+    <entry  name="vMacAddr"	        type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)mac地址"/>
+    <entry  name="vDeviceId"		type="string"		size="64"	defaultvalue="NULL"	    desc="(可选)设备Id"/>
+    <entry  name="vSystemSoftware"	type="string"		size="64"	defaultvalue="NULL"     desc="(可选)移动终端操作系统版本"/>
+    <entry  name="vSystemHardware"	type="string"		size="64"	defaultvalue="NULL"		desc="(必填)移动终端机型"/>
+    <entry  name="vCpuHardware"		type="string"		size="64"	defaultvalue="NULL"     desc="(可选)cpu类型|频率|核数"/>
+    <entry  name="vNetwork"			type="int"		                defaultvalue="0"        desc="(可选)WIFI/2G/3G/4G"/>
+  </struct>
+  -->
+  
+  <!--//////////////////////////////////////////////
+	///////用户登出表///////////////////////////////
+   /////////////////////////////////////////////////-->
+   <!-- 
+  <struct   name="UserLogout" version="1"  index="vUId,iGameSvrId,vChannel,dtEventTime" desc="(必填)玩家登出">
+    <entry  name="dtEventTime"		 type="datetime"										desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+    <entry  name="iSequence"		 type="int"											    desc="(可选)同一个服务器上一段时间内唯一的事件序号" />
+    <entry  name="iGameSvrId"		 type="int"		                                        desc="(必填)登录的游戏服务器编号" />
+    <entry  name="vGameAppId"		type="string"		size="64"	defaultvalue="NULL"	  desc="(必填)游戏APpId"/>
+    <entry  name="vChannel"			type="string"		size="64"						    desc="(必填)用户channel名" />
+    <entry  name="vUId"			    type="string"		size="64"						    desc="(必填)用户UId号" />
+    <entry  name="iOnlineTime"		 type="int"												desc="(必填)本次登录在线时间(秒)" />
+    <entry  name="vClientVersion"	 type="string"		size="64"	defaultvalue="NULL"		desc="(必填)客户端版本"/>
+    <entry  name="vLoginIP"	         type="string"		size="64"	defaultvalue="NULL"		desc="(必填)登录渠道"/>
+    <entry  name="vDeviceId"		 type="string"		size="64"	defaultvalue="NULL"	    desc="(可选)设备Id"/>
+  </struct>
+  -->
+   
+  <!--//////////////////////////////////////////////
+	///////角色创建表///////////////////////////////
+   /////////////////////////////////////////////////-->
+  <struct  name="RoleCreate"  version="1"  index="iRoleId,iGameSvrId,vChannel,vUId,dtEventTime" desc="(可选)角色创建">
+    <entry  name="dtEventTime"		type="datetime"					                      desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+    <entry  name="iSequence"		type="int"											  desc="(可选)同一个服务器上一段时间内唯一的事件序号,循环使用" />
+    <entry  name="iGameSvrId"		type="int"		                                      desc="(必填)登录的游戏服务器编号" />
+    <entry  name="vGameAppId"		type="string"		size="64"	defaultvalue="NULL"	  desc="(必填)游戏APpId"/>
+    <entry  name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+    <entry  name="vChannel"			type="string"		size="64"						  desc="(必填)用户channel名" />
+    <entry  name="vUId"			    type="string"		size="64"						  desc="(必填)用户UId号" />
+	<entry  name="iRoleId"			type="int"											  desc="(必填)内部角色Id"/>
+	<entry  name="vRoleName"		type="string"		size="64"	                 	  desc="(必填)内部角色名字"/>
+	<entry  name="iRoleType"		type="int"											  desc="(必填)内部角色职业"/>
+	<entry  name="iGenderType"		type="int"											  desc="(必填)内部角色性别"/>
+	<entry  name="iVipLvl"	        type="int"						                      desc="(必填)角色vip等级"/>
+	<entry  name="vLoginIp"			type="string"		size="64"						  desc="(必填)登录ip"/>
+    <entry  name="vMacAddr"	        type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)mac地址"/>
+    <entry  name="vDeviceId"		type="string"		size="64"	defaultvalue="NULL"	    desc="(可选)设备Id"/>
+    <entry  name="vSystemSoftware"	type="string"		size="64"	defaultvalue="NULL"     desc="(可选)移动终端操作系统版本"/>
+    <entry  name="vSystemHardware"	type="string"		size="64"	defaultvalue="NULL"		desc="(必填)移动终端机型"/>
+    <entry  name="vCpuHardware"		type="string"		size="64"	defaultvalue="NULL"     desc="(可选)cpu类型|频率|核数"/>
+    <entry  name="vNetwork"			type="int"		                defaultvalue="0"        desc="(可选)WIFI/2G/3G/4G"/>
+  </struct>
+ 
+  <!--//////////////////////////////////////////////
+	///////角色登入登出表///////////////////////////////
+   /////////////////////////////////////////////////-->
+  <struct   name="RoleLoginout" version="1" keyname="rolelogout" index="iRoleId,iGameSvrId,vChannel,vUId,iInOutType,dtEventTime" desc="(必填)角色登出">
+    <entry  name="dtEventTime"		 type="datetime"										desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+    <entry  name="iSequence"		 type="int"											    desc="(可选)同一个服务器上一段时间内唯一的事件序号" />
+    <entry  name="iGameSvrId"		 type="int"		                                        desc="(必填)登录的游戏服务器编号" />
+    <entry  name="vGameAppId"		 type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+    <entry  name="vOpenId"			 type="string"		size="64"						    desc="(必填)用户UId号" />
+    <entry  name="vChannel"			 type="string"		size="64"						    desc="(必填)用户channel名" />
+    <entry  name="vUId"			     type="string"		size="64"						    desc="(必填)用户UId号" />
+	<entry  name="iRoleId"			 type="int"											    desc="(必填)内部角色Id"/>
+	<entry  name="dtCreateTime"		 type="datetime"										desc="(必填)内部角色Id"/>
+	<entry  name="vRoleName"		 type="string"		size="64"	                 	    desc="(必填)内部角色名字"/>
+	<entry  name="iRoleType"		 type="int"											  	desc="(必填)内部角色职业"/>
+	<entry  name="iTLvl"	 		 type="int"											  	desc="(必填)角色转职等级"/>
+	<entry  name="iBWType"			 type="int"											  	desc="(必填)角色正邪阵营"/>
+    <entry  name="iLevel"            type="int"												desc="(必填)等级" />
+	<entry  name="iVipLvl"	         type="int"						                     	desc="(必填)角色vip等级"/>
+	<entry  name="iRolePayPoint"	 type="int"						                     	desc="(必填)角色充值数量"/>
+	<entry  name="iDiamondF"	     type="int"						                     	desc="(必填)角色当前非绑定钻石数量"/>
+	<entry  name="iDiamondS"	     type="int"						                     	desc="(必填)角色当前绑定钻石数量"/>
+	<entry  name="iCoinF"	         type="int"						                     	desc="(必填)角色当前非绑定金币数量"/>
+	<entry  name="iCoinS"	         type="int"						                     	desc="(必填)角色当前绑定金币数量"/>
+    <entry  name="iSectId"           type="int"										    	desc="(必填)所属帮派Id，无填0" />
+    <entry  name="iSpouseId"         type="int"										    	desc="(必填)配偶ID, 无填0" />
+    <entry  name="iFriendsNum" 		 type="int"												desc="(必填)玩家好友数量"/>
+    <entry  name="iInOutType" 		 type="int"												desc="0: logout , 1:new login 2: login reconnect 3:status change (level up etc...)"/>
+    <entry  name="iOnlineTime"		 type="int"												desc="(必填)本次登录在线时间(秒)" />
+    <entry  name="vClientVersion"	 type="string"		size="64"	defaultvalue="NULL"		desc="(必填)客户端版本"/>
+    <entry  name="vLoginIP"	         type="string"		size="64"	defaultvalue="NULL"		desc="(必填)登录渠道"/>
+    <entry  name="vMacAddr"	         type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)mac地址"/>
+    <entry  name="vDeviceId"		 type="string"		size="64"	defaultvalue="NULL"	    desc="(可选)设备Id"/>
+    <entry  name="vNetwork"			 type="int"		                defaultvalue="0"        desc="(可选)WIFI/2G/3G/4G"/>
+    <entry  name="vSystemSoftware"	 type="string"		size="64"	defaultvalue="NULL"	    desc=""/>
+    <entry  name="vSystemHardware"	 type="string"		size="64"	defaultvalue="NULL"		desc=""/>
+    <entry  name="vCpuHardware"	 	 type="string"		size="64"	defaultvalue="NULL"		desc=""/>
+  </struct>
+
+
+  <!--//////////////////////////////////////////////
+	///////游戏事件宏定义///////////////////////////////
+   /////////////////////////////////////////////////-->
+  <macrosgroup name="ACTIONTYPE">
+      <macro name="AT_GM_MOD_ITEM"                   value="1"      desc="gm修改道具"/>
+      
+      <macro name="AT_PAY"		                     value="9"    desc="充值"/>
+      <macro name="AT_SYS_REWARD"                    value="48"    desc="系统奖励"/>
+      <macro name="AT_WORLD_REWARD"                  value="49"    desc="全服奖励"/>                                               
+      <macro name="AT_LEVEL_UP"                      value="50"     desc="升级"/>
+      
+      
+      <!-- 71-79之间保留用于记录商品售卖统计分析 -->
+      <macro name="AT_BUY_MALL_GOODS"                value="71"    desc="商城购买"/>
+      <macro name="AT_BUY_SHOP_GOOGS"                value="72"    desc="购买商店商品"/>
+      <macro name="AT_STROE_BUY"                     value="73"    desc="杂货店"/>
+      <macro name="AT_BUY_SUIT"                      value="74"    desc="购买套装"/>
+      <macro name="AT_GROUPUY_GOODS"                 value="75"    desc="商品团购"/>
+      <macro name="AT_FLASHSALE_GOODS"               value="76"    desc="限时特卖"/>
+                                                     
+      <macro name="AT_BUY_COIN"                      value="101"    desc="购买金币"/>
+      <macro name="AT_BUY_VIT"                       value="102"    desc="购买体力"/>
+      <macro name="AT_USE_POTION"                    value="103"    desc="使用药水"/>
+      <macro name="AT_BUY_LUCKY_WHEEL_DRAW_TIMES"    value="104"    desc="购买幸运大转盘抽奖次数"/>
+      <macro name="AT_CHECKIN_TAKE"                  value="105"    desc="签到"/>
+      <macro name="AT_TAKE_FIRST_PAY_GIFT_REWARD"    value="106"    desc="首次充值领奖"/>
+      <macro name="AT_TAKE_PAY_GIFT_REWARD"          value="107"    desc="领取充值奖励"/>
+      <macro name="AT_TAKE_CONSUME_GIFT_REWARD"      value="108"    desc="领取消费奖励"/>
+      <macro name="AT_TAKE_UPGRADE_GIFT_REWARD"      value="109"    desc="领取升级奖励"/>
+      <macro name="AT_BUY_INVESTMENT_FUND"           value="110"    desc="购买基金"/>
+      <macro name="AT_TAKE_INVESTMENT_FUND_REWARD"   value="111"    desc="领取基金奖励"/>
+      <macro name="AT_BUY_GROWTH_FUND"               value="112"    desc="购买成长基金"/>
+      <macro name="AT_TAKE_GROWTH_FUND_REWARD"       value="113"    desc="领取成长基金"/>
+      <macro name="AT_TAKE_EXCHANGE_GIFT_REWARD"     value="114"    desc="兑换活动"/>
+      <macro name="AT_TAKE_LOGIN_GIFT_REWARD"        value="115"    desc="登录送礼活动"/>
+
+      <macro name="AT_BUY_NORMAL_MAPCOPY_TIMES"      value="116"    desc="购买普通副本进入次数"/>
+      <macro name="AT_BUY_ACTIVITY_MAPCOPY_TIMES"    value="117"    desc="购买活动副本进入次数"/>
+      <macro name="AT_SWEEP_PRIVATE_MAP"             value="118"    desc="扫荡副本"/>
+      <macro name="AT_TAKE_VIP_REWARD"               value="119"    desc="领取vip奖励"/>
+	  <macro name="AT_EXPAND_BAG_CELLS"              value="120"    desc="扩展背包"/>
+      <macro name="AT_SELL_BAG_EQUIP"                value="121"    desc="出售背包装备"/>
+      <macro name="AT_SELL_BAG_ITEM"                 value="122"    desc="出售背包物品"/>
+      <macro name="AT_SELL_BAG_GEM"                  value="123"    desc="出售背包宝石"/>
+      <macro name="AT_SELL_BAG_BOOK"                 value="124"    desc="出售背包新法书"/>
+      <macro name="AT_BATCH_SELL_BAG_EQUIPS"         value="125"    desc="批量出售背包装备"/>
+      <macro name="AT_BATCH_SELL_BAG_ITEMS"          value="126"    desc="批量出售背包道具"/>
+      <macro name="AT_BATCH_SELL_BAG_GEMS"           value="127"    desc="批量出售背包宝石"/>
+      <macro name="AT_BATCH_SELL_BAG_BOOKS"          value="128"    desc="批量出售背包心法书"/>
+      <macro name="AT_USE_ITEM_GIFT_BOX"             value="129"    desc="使用礼包"/>
+      <macro name="AT_USE_ITEM_COIN_BAG"             value="130"    desc="使用金币包"/>
+      <macro name="AT_USE_ITEM_DIAMOND_BAG"          value="131"    desc="使用宝石包"/>
+      <macro name="AT_USE_ITEM_EXP"                  value="132"    desc="使用经验丹"/>
+      <macro name="AT_USE_ITEM_HP"                   value="133"    desc="使用血瓶"/>
+      <macro name="AT_USE_ITEM_HP_POOL"              value="134"    desc="使用血池道具"/>
+      <macro name="AT_USE_ITEM_EQUIP_ENERGY"         value="135"    desc="使用装备能量丹"/>
+      <macro name="AT_USE_ITEM_GEM_ENERGY"           value="136"    desc="使用宝石能量丹"/>
+      <macro name="AT_USE_ITEM_SPIRIT_INSPIRATION"   value="137"    desc="使用心法丹"/>
+      <macro name="AT_USE_ITEM_AS_VIT"               value="138"    desc="使用体力瓶"/>
+      <macro name="AT_USE_ITEM_FASHION"              value="139"    desc="使用时装包"/>
+      <macro name="AT_UP_WEAR_EQUIP"                 value="140"    desc="穿装备"/>
+      <macro name="AT_DOWN_WEAR_EQUIP"               value="141"    desc="脱装备"/>
+      <macro name="AT_EQUIP_LEVEL_UP"                value="142"    desc="装备强化"/>
+      <macro name="AT_EQUIP_STAR_UP"                 value="143"    desc="装备升星"/>
+      <macro name="AT_REPAIR_EQUIP"                  value="144"    desc="修炼装备"/>
+      <macro name="AT_AUTO_UP_WEAR_EQUIP"            value="145"    desc="批量穿装备"/>
+      <macro name="AT_GEM_LEVEL_UP"                  value="146"    desc="宝石升级"/>
+      <macro name="AT_GEM_INLAY"                     value="147"    desc="宝石镶嵌"/>
+      <macro name="AT_GEM_UNLAY"                     value="148"    desc="宝石解镶嵌"/>
+      <macro name="AT_SKILL_LEVEL_UP"                value="149"    desc="技能等级提升"/>
+      <macro name="AT_SKILL_ENHANCE"                 value="150"    desc="技能强化"/>
+      <macro name="AT_LEARN_SPIRIT"                  value="151"    desc="学习心法"/>
+      <macro name="AT_SPIRIT_LEVEL_UP"               value="152"    desc="心法升级"/>
+      <macro name="AT_MAKE_WEAPON"                   value="153"    desc="激活神兵"/>
+      <macro name="AT_WEAPON_LEVEL_UP"               value="154"    desc="神兵升级"/>
+      <macro name="AT_WEAPON_BUY_LEVEL"              value="155"    desc="神兵购买升级"/>
+      <macro name="AT_MAKE_PET"                      value="156"    desc="激活佣兵"/>
+      <macro name="AT_PET_TRANSFORM"                 value="157"    desc="佣兵转职"/>
+      <macro name="AT_PET_LEVEL_UP"                  value="158"    desc="佣兵升级"/>
+      <macro name="AT_PET_BUY_LEVEL"                 value="159"    desc="佣兵购买升级"/>
+      <macro name="AT_PET_STAR_UP"                   value="160"    desc="佣兵升星"/>
+      <macro name="AT_PET_BREAK_SKILL_LEVEL_UP"      value="161"    desc="佣兵技能突破"/>
+      <macro name="AT_TAKE_DAILY_TASK_REWARD"        value="162"    desc="领取每日任务奖励"/>
+      <macro name="AT_TAKE_CHALLENGE_TASK_REWARD"    value="163"    desc="领取挑战任务奖励"/>
+      <macro name="AT_TAKE_DAILY_ONLINE_GIFT"        value="164"    desc="领取每日在线奖励"/>
+      <macro name="AT_LUCKY_WHEEL_ON_DRAW"           value="165"    desc="幸运大转盘抽奖"/>
+
+      <macro name="AT_TAKE_MAIN_TASK_REWARD"         value="166"    desc="领取主线任务奖励"/>
+      <macro name="AT_TAKE_WEAPON_TASK_REWARD"       value="167"    desc="领取神兵任务奖励"/>
+      <macro name="AT_DIY_SKILL_BUY_TIMES"           value="168"    desc="购买自创武功次数"/>
+      <macro name="AT_CLAN_SPLIT_SP_BUY"             value="169"    desc="购买分解装备能量"/>
+      <macro name="AT_CLAN_MOVE_POSITION"            value="170"    desc="宗门战之宗门迁移"/>
+      <macro name="AT_TELEPORT_NPC"                  value="171"    desc="地图传送到NPC"/>
+      <macro name="AT_TELEPORT_MONSTER"              value="172"    desc="地图传送到怪物"/>
+      <macro name="AT_TELEPORT_MINERAL"              value="173"    desc="地图传送到矿"/>
+      <macro name="AT_ARENA_RESET_COOL"              value="174"    desc="竞技场清除冷却"/>
+      <macro name="AT_ARENA_BUY_TIMES"               value="175"    desc="竞技场购买次数"/>
+      <macro name="AT_TAKE_ARENA_SCORE_REWARD"       value="176"    desc="竞技场领取积分奖励"/>
+      <macro name="AT_GIVE_FRIEND_FLOWER"            value="177"    desc="给好友送花"/>
+      <macro name="AT_PUT_ON_EQUIP"                  value="178"    desc="寄售装备"/>
+      <macro name="AT_PUT_ON_NORMAL_ITEMS"           value="179"    desc="寄售道具"/>
+      <macro name="AT_PUT_OFF_AUCTION_ITEMS"         value="180"    desc="取消寄售道具装备"/>
+      <macro name="AT_BUY_AUCTION_ITEMS"             value="181"    desc="购买寄售道具装备"/>
+      <macro name="AT_EXPAND_AUCTION_CELLS"          value="182"    desc="扩充寄售格子"/>
+      <macro name="AT_REFRESH_TREASURE_INFO"         value="183"    desc="刷新藏宝图碎片"/>
+      <macro name="AT_BUY_TREASURE_PIECES"           value="184"    desc="购买藏宝图碎片"/>
+      <macro name="AT_TREASURE_TOTAL_SEARCH"         value="185"    desc="开启寻宝"/>
+      <macro name="AT_MEDAL_GROW"                    value="186"    desc="宝物装裱"/>
+      <macro name="AT_TAME_HORSE"                    value="187"    desc="驯服坐骑"/>
+      <macro name="AT_UP_STAR_HORSE"                 value="188"    desc="坐骑升星"/>
+      <macro name="AT_ENHANCE_HORSE"                 value="189"    desc="坐骑强化"/>
+      <macro name="AT_ACTIVATE_SHOW"                 value="190"    desc="坐骑幻化"/>
+      <macro name="AT_LEARN_HORSE_SKILL"             value="191"    desc="学习坐骑技能"/>
+      <macro name="AT_CLAN_BUY_DO_POWER"             value="192"    desc="宗门购买行动力"/>
+      <macro name="AT_USE_CHAT_ITEM"                 value="193"    desc="消耗大喇叭"/>
+      
+      <macro name="AT_SYNC_END_MINE"                 value="194"    desc="结束挖矿"/>
+      <macro name="AT_ADD_DROP_TO_BAG"			     value="195"    desc="拾取掉落和奖励物品到背包"/>
+      <macro name="AT_SWEEP_ADD_DROP_TO_BAG"    	 value="196"    desc="领取扫荡掉落和奖励物品到背"/>
+      <macro name="AT_TAKE_MAIL_ATTACHMENT"          value="197"    desc="领取邮件附件"/>
+      <macro name="AT_TAKE_ALL_MAIL_ATTACHMENT"      value="198"    desc="领取全部邮件附件"/>
+      <macro name="AT_COMMON_MAPCOPY_ONSTART"        value="199"    desc="进入普通副本扣体力"/>
+      <macro name="AT_ON_SELECT_REWARD_CARD"         value="200"    desc="领取通关副本翻盘奖励"/>
+      <macro name="AT_SECT_MAPCOYP_ONSTART"          value="201"    desc="进入帮派副本扣体力"/>
+      <macro name="AT_SECT_MAPCOYP_ONEND"            value="202"    desc="帮派副本结束伤害奖励"/>
+      <macro name="AT_ARENA_MAPCOPY_ONEND"           value="203"    desc="竞技场结束名次上升奖励"/>
+      <macro name="AT_REVIVE_IN_SITU"                value="204"    desc="原地复活"/>
+      <macro name="AT_TRANSFORM"                     value="205"    desc="转职"/>
+      <macro name="AT_TRY_START_MINE"                value="206"    desc="挖矿"/>
+      <macro name="AT_TAKE_GIFT_PACKAGE_REWARD"		 value="207"    desc="礼包码兑换奖励"/>
+      <macro name="AT_USER_REFRESH_SHOP"             value="208"    desc="用户刷新商店"/>
+      <macro name="AT_DEL_LOCKED_BAG_ITEMS"          value="209"    desc="生产删除锁定道具"/>
+      <macro name="AT_TRY_REFRESH_VIT"               value="210"    desc="尝试刷新体力"/>
+      <macro name="AT_TRY_REFRESH_SPLIT_SP"          value="211"    desc="尝试刷新分解能量"/>
+      <macro name="AT_USE_ITEM_CHEST_IMPL"           value="212"    desc="使用抽奖宝箱"/>
+      <macro name="AT_USE_ITEM_AS_RECIPEREEL"        value="213"    desc="使用配方卷轴"/>
+      <macro name="AT_WEAPON_STAR_UP"                value="214"    desc="神兵升星"/>
+      <macro name="AT_CREATE_NEW_SECT"               value="215"    desc="创建新帮派"/>
+      <macro name="AT_TRY_WORSHIP_SECT_MEMBER"       value="216"    desc="尝试膜拜帮派成员"/>
+      <macro name="AT_TRY_OPEN_SECT_BANQUET"         value="217"    desc="尝试开启帮派宴席"/>
+      <macro name="AT_TRY_JOIN_SECT_BANQUET"         value="218"    desc="尝试参加帮派宴席"/>
+      <macro name="AT_SECT_TASK_FINISH_CB"           value="219"    desc="完成帮派任务"/>
+      <macro name="AT_TEST_LOG_TASK"                 value="220"    desc="提交任务道具"/>
+      <macro name="AT_SECT_TASK_RESET_CB"            value="221"    desc="刷新帮派任务"/>
+      <macro name="AT_SECT_TASK_TAKE_SHARE_REWARDS"  value="222"    desc="领取帮派共享任务奖励"/>
+      <macro name="AT_CHANGE_SECT_NAME_CB"           value="223"    desc="修改帮派名称"/>
+      <macro name="AT_SECT_SEND_MAIL_CB"             value="224"    desc="发送帮派信息"/>
+      <macro name="AT_DIYSKILL_SLOT_UNLOCK"          value="225"    desc="自创武功解锁槽位"/>
+      <macro name="AT_BUY_PRESTIGE"                  value="226"    desc="购买声望"/>
+      <macro name="AT_CLAN_CREATE"                   value="227"    desc="创建宗门"/>
+      <macro name="AT_CLAN_SHOUTU_SPEEDUP"           value="228"    desc="宗门加速收徒"/>
+      <macro name="AT_CLAN_BIWU_SPEEDUP"             value="229"    desc="宗门加速比武"/>
+      <macro name="AT_CLAN_BUSHI_START"              value="230"    desc="宗门布施开始"/>
+      <macro name="AT_OFFLINE_EXP"                   value="231"    desc="离线领经验奖励"/>
+      <macro name="AT_CLAN_RUSH_TOLLGATE_TO_EXP"     value="232"    desc="宗门经验提升精英弟子属性"/>
+      <macro name="AT_CLAN_RUSH_TOLLGATE_TO_ITEM"    value="233"    desc="宗门道具提升精英弟子属性"/>
+      <macro name="AT_CLAN_ORE_BUILD_UPLEVEL"        value="234"    desc="宗门矿升级"/>
+      <macro name="AT_ADD_CLAN_ORE"                  value="235"    desc="宗门添加矿"/>
+      <macro name="AT_SYNC_ADD_ORE"                  value="236"    desc="宗门矿添加物品"/>
+      <macro name="AT_CLAN_CHUANDAO_START"           value="237"    desc="宗门传道开始"/>
+      <macro name="AT_CLAN_ORE_OCCUPY_FINISH"        value="238"    desc="宗门占矿完成"/>
+      <macro name="AT_CLAN_SEARCH_ORE"               value="239"    desc="宗门夺矿搜索"/>
+      <macro name="AT_CLAN_ORE_HARRY_FIGHT_END"      value="240"    desc="宗门矿遭遇战结束"/>
+      <macro name="AT_CLAN_BATTLE_KEEK"              value="241"    desc="宗门战侦查"/>
+      <macro name="AT_CLAN_SPLIT"                    value="242"    desc="宗门分解"/>
+      <macro name="AT_ON_SUPER_ARENA_END"            value="243"    desc="会武副本结算"/>
+      <macro name="AT_RESET_TRANS_TIME"              value="244"    desc="重置传送时间"/>
+      <macro name="AT_CHECK_CAN_TRANS_TO_BOSS"       value="245"    desc="传送至BOSS"/>
+      <macro name="AT_RECEIVE_FRIEND_VIT"            value="246"    desc="接收好友赠送的体力批量"/>
+      <macro name="AT_RECEIVE_FRIEND_VIT2"           value="247"    desc="接收好友赠送的体力单个"/>
+      <macro name="AT_LOG_TREASURE_TASK"             value="248"    desc="藏宝图任务消耗"/>
+      <macro name="AT_TAKE_TREASURE_NPC_REWARD"      value="249"    desc="获取藏宝图NPC奖励"/>
+      <macro name="AT_TAKE_TREASURE_MAP_REWARD"      value="250"    desc="获取藏宝图地图奖励"/>
+      <macro name="AT_GM_ADD_GAME_ITEM"              value="251"    desc="GM添加物品"/>
+      <macro name="AT_SEAL_NORMAL_MAKE"              value="252"    desc="龙印道具合成"/>
+      <macro name="AT_SEAL_DIAMOND_MAKE"             value="253"    desc="龙印元宝合成"/>
+      <macro name="AT_SEAL_UPGRADE"                  value="254"    desc="龙印升级"/>
+      <macro name="AT_SEAL_ENHANCE"                  value="255"    desc="龙印洗练"/>
+      <macro name="AT_ADD_EXP_COIN"                  value="256"    desc="获取经验正常历练币"/>
+      <macro name="AT_USE_ITEM_EXPCOIN_POOL"         value="257"    desc="使用历练瓶"/>
+      <macro name="AT_EXTRACT_EXPCOIN"               value="258"    desc="提炼历练到历练瓶"/>
+      <macro name="AT_BWARENA_MAPCOPY_ONEND"         value="259"    desc="正邪道场副本结束"/>
+      <macro name="AT_BWARENA_REFRESH_ENEMY"         value="260"    desc="正邪道场刷新对手"/>
+      <macro name="AT_BWARENA_TAKE_SCORE_REWARD"     value="261"    desc="正邪道场领取积分奖励"/>
+      <macro name="AT_BWARENA_BUY_TIMES"             value="262"    desc="正邪道场购买次数"/>
+      <macro name="AT_RARE_BOOK_PUSH"                value="263"    desc="藏书道具存到书袋"/>
+      <macro name="AT_RARE_BOOK_POP"                 value="264"    desc="书袋中取出藏书"/>
+      <macro name="AT_RARE_BOOK_UNLOCK"              value="265"    desc="解锁藏书"/>
+      <macro name="AT_RARE_BOOK_UPLVL"               value="266"    desc="藏书升级"/>
+      <macro name="AT_GRASP_IMPL"                    value="267"    desc="参悟"/>
+      <macro name="AT_GRASP_RESET"                   value="268"    desc="参悟CD重置"/>
+      <macro name="AT_CLAN_PRODUCE"                  value="269"    desc="宗门生产"/>
+      <macro name="AT_ROLE_MEMEBER_USE_VIE"          value="270"    desc="帮派成员消耗体力"/>
+      <macro name="AT_ACCELERATE_UPGRADE_COOLING"    value="271"    desc="加快帮派升级冷却"/>
+      <macro name="AT_ADD_SECT_AURA_EXP"             value="272"    desc="捐献帮派技能道具"/>
+      <macro name="AT_TAKE_WORSHIP_REWARD"           value="273"    desc="获取膜拜奖励"/>
+      <macro name="AT_TAKE_PET_TASK_REWARD"          value="274"    desc="获取随从任务奖励"/>
+      <macro name="AT_TAKE_BETA_ACTIVITY_REWARD"     value="275"    desc="获取封测活动奖励"/>
+      <macro name="AT_USE_ITEM_MONTHLYCARD"          value="276"    desc="使用月卡道具"/>
+      <macro name="AT_USE_ITEM_VIPCARD"              value="277"    desc="使用VIP体验卡"/>
+      <macro name="AT_TAKE_BRANCH_TASK_REWARD"		 value="278"	desc="获取支线任务奖励"/>
+      <macro name="AT_CLIMB_TOWER_BUY_TIMES"		 value="279"	desc="爬塔活动购买次数"/>
+      <macro name="AT_START_CLIMB_TOWER_COPY"		 value="280"	desc="爬塔活动进入副本"/>
+      <macro name="AT_USER_ITEM_TOWER_FAME"			 value="281"	desc="使用获取爬塔声望道具"/>
+      <macro name="AT_TAKE_TOWER_FAME_REWARD"		 value="282"	desc="领取声望升级奖励"/>
+      <macro name="AT_REFRESH_SECT_DELIVER"          value="283"    desc="刷新帮派运镖任务列表"/>
+      <macro name="AT_SECT_DELIVER_PROTECT"          value="284"    desc="帮派运镖投保"/>
+      <macro name="AT_SECT_DELIVER_BEGIN"            value="285"    desc="开始帮派运镖"/>
+      <macro name="AT_SAVE_WISH_SECT_DELIVER"        value="286"    desc="帮派运镖祝福保存"/>
+      <macro name="AT_TAKE_SECRET_AREA_REWARD"		 value="287"	desc="领取秘境任务奖励"/>
+      <macro name="AT_SWEEP_TOWER_MAP"				 value="288"	desc="扫荡爬塔副本"/>
+      <macro name="AT_FINISH_SECT_DELIVER"           value="289"    desc="领取帮派运镖奖励"/>
+      <macro name="AT_MERGE_BAG"                     value="290"    desc="背包合并"/>
+      <macro name="AT_ROB_SUCCESS"                   value="291"    desc="获取劫镖奖励"/>
+      <macro name="AT_USE_ITEM_FEAT_ADDER"           value="292"    desc="使用增加武勋道具"/>
+      <macro name="AT_USE_ITEM_SKILL"                value="293"    desc="使用技能道具"/>
+      <macro name="AT_USE_ITEM_SKILL_FAIL"           value="294"    desc="使用技能道具失败"/>
+      <macro name="AT_REMAIN_ACTIVITY_REWARD"        value="295"    desc="领取七日留存奖励"/>
+      <macro name="AT_USE_ITEM_LETTER"               value="296"    desc="使用信件"/>
+      <macro name="AT_PIECE_COMPOSE"                 value="297"    desc="碎片合成"/>
+      <macro name="AT_ROLE_RENAME"                   value="298"    desc="角色改名"/>      
+      <macro name="AT_TAKE_PET_LIFE_TASK_REWARD"	 value="299"	desc="获取随从身世任务奖励"/>  
+      <macro name="AT_ADD_MESSAGE_BOARD"	         value="300"	desc="发布留言板"/>  
+      <macro name="AT_TAKE_DAILY_PAY_GIFT_REWARD"	 value="301"	desc="获取每日充值奖励"/>  
+      <macro name="AT_TAKE_SCHEDULE_REWARD"          value="302"    desc="获取日程表奖励"/>
+      <macro name="AT_UNLOCK_ARMOR_TYPE"             value="303"    desc="解锁内甲类型"/>
+      <macro name="AT_USE_ITEM_EVIL_VALUE"			 value="304"	desc="使用善恶值道具"/>      
+      <macro name="AT_ARMOR_UPRANK"                  value="305"    desc="内甲升阶"/>    
+      <macro name="AT_ARMOR_LEVEL_UP"                value="306"    desc="内甲升级"/>    
+      <macro name="AT_PUSH_RUNE_TO_RUNE_BAG"         value="307"    desc="符文存入符文包"/>    
+      <macro name="AT_POP_RUNE_TO_BAG"               value="308"    desc="符文取回背包"/>    
+      <macro name="AT_ARMOR_RESET_TALENT"            value="309"    desc="内甲重置天赋"/>    
+      <macro name="AT_SOLT_GROUP_UNLOCK"             value="310"    desc="内甲符文页解锁"/>    
+      <macro name="AT_RUNE_WISH"                     value="311"    desc="符文祝福"/>    
+      <macro name="AT_WAREHOUSE_SAVE"                value="312"    desc="存入仓库"/>    
+      <macro name="AT_WAREHOUSE_TAKE"                value="313"    desc="取出仓库"/>    
+      <macro name="AT_MARRIAGE"                      value="314"    desc="结婚"/>    
+      <macro name="AT_DIVORCE"                       value="315"    desc="离婚"/>    
+      <macro name="AT_ITEM_EXCHANGE"                 value="316"    desc="道具兑换"/>    
+      <macro name="AT_MARRIAGE_SKILL_LEVEL_UP"       value="317"    desc="结婚技能升级"/>    
+      <macro name="AT_EXBAND_WAREHOUSE"              value="318"    desc="拓展仓库"/>    
+      <macro name="AT_OPEN_SECT_GROUP_MAP"           value="319"    desc="开启帮派团本"/>    
+      <macro name="AT_UP_LEVEL_HORSE_SKILL"          value="320"    desc="坐骑技能升级"/>
+      <macro name="AT_WEAPON_SKILL_LEVEL_UP"         value="321"    desc="神兵技能升级"/>
+      <macro name="AT_WEAPON_TALENT_POINT_BUY"       value="322"    desc="神兵天赋点购买"/>
+      <macro name="AT_WEAPON_TALENT_POINT_RESET"     value="323"    desc="神兵天赋点重置"/>
+      <macro name="AT_SNATCH_RED_ENEVLOPE"  	     value="324"    desc="抢红包"/>
+      <macro name="AT_PLAY_FIREWORK"				 value="325"	desc="燃放烟花"/>
+      <macro name="AT_TAKE_MRGSERIES_TASK_REWARD"    value="326"    desc="领取姻缘系列任务奖励"/>
+      <macro name="AT_TAKE_MRGLOOP_TASK_REWARD"      value="327"    desc="领取姻缘环任务奖励"/>
+      <macro name="AT_SEND_GIFT"                     value="328"    desc="发送礼物"/>
+      <macro name="AT_GET_GIFT"                      value="329"    desc="接受礼物"/>
+      <macro name="AT_USE_ITEM_PROP_STRENGTH"        value="330"    desc="使用属性强化道具"/>
+      <macro name="AT_FAME_UPGRADE"    				 value="331"    desc="名望晋级"/>
+      <macro name="AT_FAME_TAKE_REWARD"  			 value="332"    desc="名望领奖"/>
+      <macro name="AT_PET_SKILL_LEVEL_UP"  			 value="333"    desc="随从技能升级"/>
+      <macro name="AT_WEAPON_USKILL_OPEN"  			 value="334"    desc="神兵特技激活"/>
+      <macro name="AT_EQUIP_REFINE"  			     value="335"    desc="装备精炼"/>
+      <macro name="AT_PET_SPIRIT_LVLUP"  			 value="336"    desc="随从武库心法升级"/>
+      <macro name="AT_PET_SPIRIT_LEARN"  			 value="337"    desc="随从心法重修"/>
+      <macro name="AT_BUY_OFFLINE_FUNC_POINT"		 value="338"    desc="购买修炼点数"/>
+      <macro name="AT_TITLE_UNLOCKSLOT"				 value="339"	desc="解锁称号槽"/>
+      <macro name="AT_USE_ITEM_OFFLINE_FUNC_POINT"	 value="340"	desc="使用修炼点道具"/>
+      <macro name="AT_TAKE_GIFT_CDKEY_REWARD"		 value="341"    desc="cdkey码兑换奖励"/>
+      <macro name="AT_BUY_GAMBLE_SHOP_GOOGS"         value="342"    desc="购买赌博商店商品"/>
+      <macro name="AT_USER_REFRESH_GAMBLE_SHOP"      value="343"    desc="刷新赌博商店商品"/>
+      <macro name="AT_TAKE_LAST_PAY_GIFT_REWARD"     value="344"    desc="获取持续充值奖励"/>
+      <macro name="AT_USE_ITEM_TITLE"				 value="345"	desc="使用称号道具"/>
+      <macro name="AT_TAKE_ACT_CHALLENGE_GIFT"		 value="346"	desc="获取活动挑战奖励"/>
+      <macro name="AT_BUY_BASE_DUMMY_GOODS"			 value="347"	desc="基础货币快速购买"/>
+      <macro name="AT_TRANSFER_POINT_BUY"		 	 value="348"	desc="购买乾坤点"/>
+      <macro name="AT_TRANSFER_POINT_RESET"		 	 value="349"	desc="重置乾坤点"/>
+      <macro name="AT_ACTIVITY_LAST_QUICK_FINISH" 	 value="350"	desc="试炼补做"/>
+      <macro name="AT_MARRIAGE_BESPEAK"			 	 value="351"	desc="婚礼预约"/>
+      <macro name="AT_TELEPORT_STELE"                value="352"    desc="地图传送到太玄碑文"/>
+      <macro name="AT_TAKE_PBTCASHBACK"              value="353"    desc="获得公测返现奖励"/>
+      <macro name="AT_UP_DEMON_FLOOR"            	 value="354"    desc="进入伏魔洞下一层"/>
+      <macro name="AT_BUY_UPGRADE_PURCHASE"          value="355"    desc="购买升级特惠"/>
+      <macro name="AT_ENTER_DEMONHOLE_FLOOR"   		 value="356"    desc="伏魔洞每层进入奖励"/>
+      <macro name="AT_PLAY_LUCKYROLL"				 value="357"	desc="玩转盘奖励"/>
+      <macro name="AT_SEND_LUCKLY_STAR"				 value="358"	desc="送幸运星奖励"/>
+      <macro name="AT_FIGHT_NPC_REWARD"				 value="359"	desc="约战NPC奖励"/>
+      <macro name="AT_TAKE_PACKET_REWARD"			 value="360"	desc="领取分包奖励"/>
+      <macro name="AT_ADD_ACTIVITY"			 		 value="361"	desc="增加活跃度"/>      
+      <macro name="AT_UNLOCK_HORSE_PROP"			 value="362"	desc="解锁坐骑洗练属性"/>
+      <macro name="AT_LVLUP_TRANSFER_POINT"		 	 value="363"	desc="乾坤点升级"/>    
+      <macro name="AT_USE_ITEM_USKILL"			     value="364"	desc="使用绝技道具"/>    
+      <macro name="AT_BUY_WIZARD_PET_TIME"		     value="365"	desc="购买休闲宠物时间"/>    
+      <macro name="AT_USE_ITEM_HEAD"		     	 value="366"	desc="使用头像激活道具"/>    
+      <macro name="AT_NPC_TRANSFROM"		     	 value="367"	desc="使用NPC传送功能"/>
+      <macro name="AT_MAKE_LEGEND_COST"		     	 value="368"	desc="传世装备打造"/>
+      <macro name="AT_MAKE_LEGEND_SAVE"		     	 value="369"	desc="传世装备属性保存"/>
+      <macro name="AT_MAKE_LEGEND_QUIT"		     	 value="370"	desc="传世装备属性舍弃"/>
+      <macro name="AT_TAKE_DIRECT_PURCHASE_REWARD"   value="371"    desc="领取直购礼包奖励"/>
+      <macro name="AT_TAKE_SPECIAL_CARD_REWARD"   	 value="372"    desc="领取特权卡奖励"/>     
+      <macro name="AT_PLAY_ONE_ARM_BANDIT"   	     value="373"    desc="抽老虎机奖励"/>     
+      <macro name="AT_GET_RED_ENEVLOPE_EMPTY_GIFT"   value="374"    desc="红包保底奖励"/>
+      <macro name="AT_ON_NORMAL_MAP_END"   			 value="375"    desc="组队副本奖励"/>     
+      <macro name="AT_UNLOCK_ROLE_HEAD"              value="375"    desc="道具解锁头像"/>     
+      <macro name="AT_JOIN_NPC_PRAY"                 value="376"    desc="NPC祈福"/>
+      <macro name="AT_TD_MAP_FINISH_REWARD"          value="377"    desc="塔防副本结算奖励"/>     
+      <macro name="AT_UNLOCK_PRIVATE_WAREHOUSE"      value="378"    desc="解锁私人仓库"/>     
+      <macro name="AT_PRODUCE_FUSION"      			 value="379"    desc="炼化炉炼化道具"/>     
+    </macrosgroup>
+  
+
+	<!--//////////////////////////////////////////////
+	///////角色事件表流水表///////////////////////////////
+   /////////////////////////////////////////////////-->	
+	<struct   name="RoleEventFlow" version="1"  index="iRoleId,iGameSvrId,vChannel,iEventId,dtEventTime" desc="(可选)角色游戏事件流水表">
+		<entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry  name="iSequence"		  type="int"											desc="(可选)用于关联一次动作产生多条不同类型的道具流动日志" />
+		<entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+		<entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+		<entry  name="iLevel"            type="int"												desc="(必填)等级" />
+	    <entry  name="iVipLvl"	         type="int"						                     	desc="(必填)角色vip等级"/>
+		<entry  name="iEventId"			  type="int"						                 	desc="(必填)游戏事件Id "/>
+		<entry  name="vConsumeItems"	  type="string"		   size="2048"	multirowtbl_="RoleItemsFlow;1,2,3,4,5,6,7,8,9,10;"		desc="涉及的变化的通用物品Id ，消耗数目， 消耗后数量，以逗号分隔，不同类型物品之间以分号分隔"/>
+		<entry  name="vProduceItems"	  type="string"		   size="2048"	multirowtbl_="RoleItemsFlow;1,2,3,4,5,6,7,8,9,10;"		desc="涉及的变化的通用物品Id ，产出数目， 产出后数量，以逗号分隔，不同类型物品之间以分号分隔"/>
+		<!-- entry  name="vConsumeEquips"	  type="string"		   size="2048"						desc="涉及的变化的装备Id ，消耗的装备GUId，以逗号分隔，不同类型物品之间以分号分隔"/ -->
+		<!-- entry  name="vProduceEquips"	  type="string"		   size="2048"						desc="涉及的变化的装备Id ，产出的装备GUId，以逗号分隔，不同类型物品之间以分号分隔"/ -->
+		<entry  name="iArg1"              type="int"       									    desc="(可选)游戏事件描述参数1,根据具体iEvnetId的不同有不同的意义,如完成战役事件在此含义为战役类型" />
+		<entry  name="iArg2"              type="int"       									    desc="(可选)游戏事件描述参数2,根据具体iEvnetId的不同有不同的意义,如完成战役事件在此含义为战役序号" />
+		<entry  name="iArg3"              type="int"       									    desc="(可选)游戏事件描述参数3,根据具体iEvnetId的不同有不同的意义,如完成战役事件在此含义为关卡序号" />
+		<entry  name="iArg4"              type="int"       									    desc="(可选)游戏事件描述参数4,根据具体iEvnetId的不同有不同的意义,如完成战役事件在此含义为星级" />
+		<entry  name="vArg"   		      type="string"        size="64"						desc="(可选)游戏事件字符串描述参数" />
+	</struct>
+	
+	<struct name="RoleCurrencyChangeFlow_R"	version="1" index="iRoleId,iGameSvrId,vChannel,iEventId,dtEventTime" desc="(可选)角色(绑定)资金流动流水表">
+		<entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry  name="iSequence"		  type="int"											desc="(可选)用于关联一次动作产生多条不同类型的道具流动日志" />
+		<entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+		<entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+		<entry  name="iLevel"             type="int"											desc="(必填)等级" />
+	    <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+		<entry  name="iEventId"			  type="int"						                 	desc="(必填)游戏事件Id "/>
+		<entry  name="iItemId"	  		  type="int"		   									desc="涉及的变化的通用物品Id ，消耗数目， 消耗后数量，以逗号分隔，不同类型物品之间以分号分隔"/>
+		<entry  name="iChangeCnt"	      type="int"		   									desc="涉及的变化的通用物品Id ，产出数目， 产出后数量，以逗号分隔，不同类型物品之间以分号分隔"/>
+		<entry  name="iFinalCnt"          type="int"       									    desc="变动后剩余度" />
+	</struct>
+	
+	<struct name="RoleCurrencyChangeFlow_F"	version="1" index="iRoleId,iGameSvrId,vChannel,iEventId,dtEventTime" desc="(可选)角色(非绑定)资金流动流水表">
+		<entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry  name="iSequence"		  type="int"											desc="(可选)用于关联一次动作产生多条不同类型的道具流动日志" />
+		<entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户UId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+		<entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+		<entry  name="iLevel"             type="int"											desc="(必填)等级" />
+	    <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+		<entry  name="iEventId"			  type="int"						                 	desc="(必填)游戏事件Id "/>
+		<entry  name="iItemId"	  		  type="int"		   									desc="涉及的变化的通用物品Id ，消耗数目， 消耗后数量，以逗号分隔，不同类型物品之间以分号分隔"/>
+		<entry  name="iChangeCnt"	      type="int"		   									desc="涉及的变化的通用物品Id ，产出数目， 产出后数量，以逗号分隔，不同类型物品之间以分号分隔"/>
+		<entry  name="iFinalCnt"          type="int"       									    desc="变动后剩余度" />
+	</struct>
+	
+	<!--//////////////////////////////////////////////
+	///////角色物品道具消耗流水表///////////////////////////////
+   /////////////////////////////////////////////////-->	
+	<struct   name="RoleItemsFlow" version="1"  index="iRoleId,iGameSvrId,iItemId,dtEventTime,iChange" desc="(可选)角色游戏道具变化流水表">
+		<entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry  name="iSequence"		  type="int"											desc="(可选)用于关联一次动作产生多条不同类型的道具流动日志" />
+		<entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户UId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+		<entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+		<entry  name="iLevel"             type="int"											desc="(必填)等级" />
+	    <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+		<entry  name="iEventId"			  type="int"						                 	desc="(必填)游戏事件Id "/>
+		<entry  name="iItemId"	  		  type="int"						                 	desc="涉及的变化的通用物品Id "/>
+		<entry  name="iChange"	      	  type="int"						                 	desc="涉及的变化的通用物品数量  "/>
+		<entry  name="iFinal"        	  type="int"											desc="涉及的变化的通用物品最终数量" />
+	</struct>
+	
+	  <!--//////////////////////////////////////////////
+		///////玩家充值流水表///////////////////////////////
+	   /////////////////////////////////////////////////-->
+	  <macrosgroup name="PAYLEVELTYPE">
+	    <macro name="PAY_LEVEL_MONTHCARD"    value="0"    desc="月卡"/>
+	    <macro name="PAY_LEVEL_1"            value="1"    desc="6元档位"/>
+	    <macro name="PAY_LEVEL_2"            value="2"    desc="30元档位"/>
+	    <macro name="PAY_LEVEL_3"            value="3"    desc="68元档位"/>
+	    <macro name="PAY_LEVEL_4"            value="4"    desc="128元档位"/>
+	    <macro name="PAY_LEVEL_5"            value="5"    desc="258元档位"/>
+	    <macro name="PAY_LEVEL_6"            value="6"    desc="648元档位"/>
+	    <macro name="PAY_LEVEL_RETURN"       value="100"  desc="充值返还"/> 
+	    <macro name="PAY_LEVEL_PRESENT"      value="101"  desc="系统赠送"/>
+	  </macrosgroup>
+  
+	  <struct name="RolePayFlow" version="1"   index="iRoleId,iGameSvrId,vChannel,vUId,dtEventTime,iLevel,iPayAmount,iAddPayPoint,iRolePayPointFinal" desc="玩家充值流水表">
+	      <entry  name="dtEventTime"         type="datetime"										desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+	      <entry  name="iSequence"		     type="int"											    desc="(可选)同一个服务器上一段时间内唯一的事件序号" />
+	      <entry  name="iGameSvrId"		     type="int"		                                        desc="(必填)登录的游戏服务器编号" />
+          <entry  name="vGameAppId"		     type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+          <entry  name="vOpenId"			 type="string"		size="64"						    desc="(必填)用户OpenId" />
+          <entry  name="vChannel"			 type="string"		size="64"						    desc="(必填)用户channel名" />
+          <entry  name="vUId"			     type="string"		size="64"						    desc="(必填)用户UId号" />
+	  	  <entry  name="iRoleId"			 type="int"						    					desc="(必填)当前触发充值内部角色Id"/>
+	  	  <entry  name="dtCreateTime"		 type="datetime"										desc="(必填)内部角色Id"/>
+	  	  <entry  name="iLevel"              type="int"												desc="(必填)等级" />
+		  <entry  name="iVipLvlBefore"	     type="int"						                     	desc="(必填)用户充值前vip等级"/>
+		  <entry  name="iVipLvlFinal"	     type="int"						                     	desc="(必填)用户充值后vip等级"/>
+		  <entry  name="iAddPayPoint"	     type="int"						                     	desc="(必填)充值获得的vip点数"/>
+		  <entry  name="iUserPayPointFinal"	 type="int"						                     	desc="(必填)充值后账号的总vip点数"/>
+		  <entry  name="iRolePayPointFinal"	 type="int"						                     	desc="(必填)充值后角色的总vip点数"/>
+		  <entry  name="iPayLvl"	         type="int"						                     	desc="(必填)充值档位 PAYLEVELTYPE"/>
+		  <entry  name="iPayLvlTimes"	     type="int"						                     	desc="(必填)充值档位 充值次数"/>
+		  <entry  name="iPayAmount"	         type="int"						                     	desc="(必填)充值金额(单位美分)"/>
+		  <entry  name="iAddDiamondF"	     type="int"						                     	desc="(必填)获取到非绑定钻石数"/>
+		  <entry  name="iDiamondF"	         type="int"						                     	desc="(必填)用户最终的非绑定钻石数量"/>
+		  <entry  name="vSerial"	         type="string"      size="128"                     	    desc="(必填)充值订单号"/>
+	  </struct>
+	  
+	 <!--//////////////////////////////////////////////
+	//////服务器状态日志///////////////////////////////
+	/////////////////////////////////////////////////-->
+	  <struct  name="GameSvrState"  version="1"  index="iGameSvrId,dtEventTime" desc="(必填)服务器状态流水，每分钟一条日志">
+	    <entry  name="dtEventTime"		type="datetime"					               desc="(必填) 格式 YYYY-MM-DD HH:MM:SS" />
+	    <entry  name="iGameSvrId"		type="int"		                               desc="(必填)运行的游戏服务器编号" />
+	    <entry  name="vGameAppId"		type="string"		size="64"                  desc="(必填)运行的游戏编号" />
+	    <entry  name="iOnlineCount"		type="int"		                               desc="(必填)运行的游戏服务器上当前在线人数" />
+	    <entry  name="vGameIP"			type="string"		size="64"				   desc="(必填)服务器IP" />
+	  </struct>
+	  
+  
+     <struct name="IdIPCmdFlow"  version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="idip命令流水">
+		<entry  name="dtEventTime"      	     type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />		
+		<entry  name="iGameSvrId"		         type="int"		                                            desc="(必填)登录的游戏服务器编号" />
+		<entry  name="iRoleId"			         type="int"											        desc="内部角色Id"/>
+	    <entry  name="iItemId"			         type="int" 			                                    desc="道具id"/>
+	    <entry  name="iItemCount" 		         type="int"		 								            desc="道具数量" />
+		<entry  name="iSource"                   type="int"     	   			    						desc="渠道号" />
+		<entry  name="iCmd" 		             type="int"		                    			            desc="命令字" />
+		<entry  name="vSerial" 		             type="string"		  size="64"					            desc="流水号" />
+  	 </struct>
+  	 
+  	 <macrosgroup name="TASKEVENT_TYPE">
+  	 	<macro  name="TASKEVENT_START"  			value="0"												desc="开始任务"/>
+  	 	<macro  name="TASKEVENT_TAKE"  				value="1"												desc="接取任务"/>
+  	 	<macro  name="TASKEVENT_FINISH"  			value="2"												desc="完成任务"/>
+  	 	<macro  name="TASKEVENT_CANCLE"  			value="3"												desc="放弃任务"/>
+  	 </macrosgroup>
+  	
+  	<struct name="RoleMainTaskFlow" version="1"  index="iRoleId,iGameSvrId,iTaskId,dtEventTime" desc="角色主线任务流水表">
+		<entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+		<entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+		<entry  name="dtCreateTime"		  type="datetime"										desc="(必填)内部角色Id"/>
+		<entry  name="iLevel"             type="int"											desc="(必填)等级" />
+	    <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+		<entry  name="iTaskId"			  type="int"						                 	desc="(必填)主线任务Id "/>
+		<entry  name="iTaskState"	  	  type="int"						                 	desc="(必填)事件后主线任务的状态 (0:未接取1:接取2:完成但未领奖)"/>
+		<entry  name="iEventType"   	  	  type="int"						                 	desc="(必填)主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+	</struct>
+
+    <struct name="RoleBranchTaskFlow" version="1"  index="iRoleId,iGameSvrId,iTaskId,dtEventTime" desc="角色支线任务流水表">
+        <entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="(必填)内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="(必填)等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+        <entry  name="iGroupId"			  type="int"						                 	desc="(必填)分组Id "/>
+        <entry  name="iTaskId"			  type="int"						                 	desc="(必填)任务Id "/>
+        <entry  name="iTaskState"	  	  type="int"						                 	desc="(必填)事件后任务的状态 (0:未接取1:接取2:完成但未领奖)"/>
+        <entry  name="iEventType"   	  	  type="int"						                 	desc="(必填)主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+    </struct>
+    
+    <struct name="RoleSectTaskFlow" version="1"  index="iRoleId,iGameSvrId,iTaskId,dtEventTime" desc="角色帮派任务流水表">
+        <entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="(必填)内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="(必填)等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+        <entry  name="iSectId"			  type="int"						                 	desc="(必填)帮派Id "/>
+        <entry  name="iTaskId"			  type="int"						                 	desc="(必填)任务Id "/>
+        <entry  name="iTaskState"	  	  type="int"						                 	desc="(必填)事件后任务的状态 (0:未接取1:接取2:完成但未领奖)"/>
+        <entry  name="iEventType"   	  type="int"						                 	desc="(必填)主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+    </struct>
+
+    <struct name="RoleSectDeliverTaskFlow" version="1"  index="iRoleId,iGameSvrId,iTaskId,dtEventTime" desc="角色帮派任务流水表">
+        <entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="(必填)内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="(必填)等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+        <entry  name="iSectId"			  type="int"						                 	desc="(必填)帮派Id "/>
+        <entry  name="iTaskId"			  type="int"						                 	desc="(必填)任务Id "/>
+        <entry  name="iTaskState"	  	  type="int"						                 	desc="(必填)事件后任务的状态 (0:未接取1:接取2:完成但未领奖)"/>
+        <entry  name="iEventType"   	  type="int"						                 	desc="(必填)主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+    </struct>
+    
+    <struct name="RoleSectRobTaskFlow" 	version="1"  index="iRoleId,iGameSvrId,iTaskId,dtEventTime" desc="角色劫镖流水">
+        <entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="(必填)内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="(必填)等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+        <entry  name="iSectId"			  type="int"						                 	desc="(必填)帮派Id "/>
+        <entry  name="iTaskId"			  type="int"						                 	desc="(必填)任务Id "/>
+        <entry  name="iTaskState"	  	  type="int"						                 	desc="(必填)事件后任务的状态 (0:未接取1:接取2:完成但未领奖)"/>
+        <entry  name="iEventType"   	  type="int"						                 	desc="(必填)主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+    </struct>
+    
+    <struct name="RoleDailyTaskFlow" 	version="1"  index="iRoleId,iGameSvrId,iTaskId,dtEventTime" desc="角色日常任务流水">
+        <entry  name="dtEventTime"        type="datetime"									    desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="角色vip等级"/>
+        <entry  name="iTaskId"			  type="int"						                 	desc="任务Id "/>
+        <entry  name="iTaskState"	  	  type="int"						                 	desc="事件后任务的状态 (0:未接取1:接取2:完成但未领奖)"/>
+        <entry  name="iEventType"   	  type="int"						                 	desc="主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+    </struct>
+    
+    <struct name="RoleScheduleTaskFlow" 	version="1"  index="iRoleId,iGameSvrId,iTaskId,dtEventTime" desc="角色日常任务流水">
+        <entry  name="dtEventTime"        type="datetime"									    desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="角色vip等级"/>
+        <entry  name="iTaskId"			  type="int"						                 	desc="任务Id "/>
+        <entry  name="iTaskState"	  	  type="int"						                 	desc="事件后任务的状态 (0:未接取1:接取2:完成但未领奖)"/>
+        <entry  name="iEventType"   	  type="int"						                 	desc="主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+    </struct>
+    
+    <macrosgroup name="COPYEVENT_TYPE">
+    	<macro  name="COPYEVENT_APPLY"		value="-1"							desc="报名"/>
+    	<macro  name="COPYEVENT_START"		value="0"							desc="副本开始"/>
+    	<macro  name="COPYEVENT_FINISH"		value="1"							desc="副本结束"/>
+    	<macro  name="COPYEVENT_SWEEP"		value="2"							desc="扫荡副本"/>
+    </macrosgroup>
+    
+    <struct name="RolePrivateNormalCopyFlow" version="1"  index="iRoleId,iGameSvrId,iMapId,dtEventTime" desc="角色副本任务流水表">
+        <entry  name="dtEventTime"        type="datetime"									    desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="角色vip等级"/>
+        <entry  name="iMapId"			  type="int"						                	desc="主线任务Id "/>
+        <entry  name="iEventType"   	  type="int"						                	desc="主线任务事件类型 (0:进入 1:扫荡, 2:离开)"/>
+        <entry  name="iArg"	  	  	  	  type="int"						                	desc=""/>
+    </struct>
+
+    <struct name="RolePublicNormalCopyFlow" version="1"  index="iRoleId,iGameSvrId,iMapId,dtEventTime" desc="角色副本任务流水表">
+        <entry  name="dtEventTime"        type="datetime"									    desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="角色vip等级"/>
+        <entry  name="iMapId"			  type="int"						                	desc="主线任务Id "/>
+        <entry  name="iEventType"   	  type="int"						                	desc="主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+    </struct>
+    
+    <!-- 
+    <struct name="RoleCommonCopyFlow" version="1"  index="iRoleId,iGameSvrId,vChannel,vUId,iTaskId,dtEventTime" desc="角色副本任务流水表">
+        <entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="(必填)内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="(必填)等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+        <entry  name="iTaskId"			  type="int"						                 	desc="(必填)主线任务Id "/>
+        <entry  name="iTaskState"	  	  type="int"						                 	desc="(必填)事件后主线任务的状态 (0:未接取1:接取2:完成但未领奖)"/>
+        <entry  name="iEventType"   	  type="int"						                 	desc="(必填)主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+    </struct>
+ -->
+    <struct name="RoleActiveCopyFlow" version="1"  index="iRoleId,iGameSvrId,iMapId,dtEventTime" desc="角色活动副本流水表">
+        <entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="(必填)内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="(必填)等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+        <entry  name="iMapId"			  type="int"						                 	desc="(必填)主线任务Id "/>
+        <entry  name="iEventType"   	  type="int"						                 	desc="副本动作(0:开始新副本 1:扫荡副本 2:完成副本)"/>
+        <entry  name="iArg"	  	  	  	  type="int"						                	desc=""/>
+    </struct>
+
+    <struct name="RoleChallengeTaskFlow" version="1"  index="iRoleId,iGameSvrId,iTaskId,dtEventTime" desc="角色活动副本流水表">
+        <entry  name="dtEventTime"        type="datetime"									    desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="(必填)登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="(必填)游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="(必填)用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="(必填)用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="(必填)用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="(必填)内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="(必填)内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="(必填)等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="(必填)角色vip等级"/>
+        <entry  name="iTaskId"			  type="int"						                 	desc="(必填)主线任务Id "/>
+        <entry  name="iTaskState"	  	  type="int"						                 	desc="(必填)事件后主线任务的状态 (0:未接取1:接取2:完成但未领奖)"/>
+        <entry  name="iEventType"   	  type="int"						                 	desc="(必填)主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+    </struct>
+
+    <macrosgroup name="BOSSEVENT_TYPE">
+    	<macro  name="BOSSEVENT_TRANSTO"	value="1"							desc="传送至boss点"/>
+    	<macro  name="BOSSEVENT_DAMAGE"		value="2"							desc="对boss造成伤害 "/>
+    </macrosgroup>
+    
+    <struct name="RoleBossTaskFlow"  version="1"  index="iRoleId,iGameSvrId,iBossId,dtEventTime" desc="boss战记录">
+        <entry  name="dtEventTime"        type="datetime"									    desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+        <entry  name="iGameSvrId"		  type="int"		                                    desc="登录的游戏服务器编号" />
+        <entry  name="vGameAppId"		  type="string"		size="64"	defaultvalue="NULL"	    desc="游戏APpId"/>
+        <entry  name="vOpenId"			  type="string"		size="64"						    desc="用户OpenId号" />
+        <entry  name="vChannel"			  type="string"		size="64"						    desc="用户channel名" />
+        <entry  name="vUId"			      type="string"		size="64"						    desc="用户UId号" />
+        <entry  name="iRoleId"			  type="int"											desc="内部角色Id"/>
+        <entry  name="dtCreateTime"		  type="datetime"										desc="内部角色Id"/>
+        <entry  name="iLevel"             type="int"											desc="等级" />
+        <entry  name="iVipLvl"	          type="int"						                    desc="角色vip等级"/>
+        <entry  name="iBossId"			  type="int"						                 	desc="主线任务Id "/>
+        <entry  name="iTaskType"	  	  type="int"						                 	desc="记录类型 (0:传送至boss点 1:对boss造成伤害)"/>
+        <entry  name="iKill"   	  	  	  type="int"						                 	desc="主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+        <entry  name="iDamage"   	  	  type="int"						                 	desc="主线任务事件类型 (0:开始新任务1:接取任务2:完成任务3:取消任务)"/>
+    </struct>
+    
+  	<macrosgroup name="TASK_TYPE">
+		<macro name="TASKTYPE_CARBON"				value="1"		desc="副本任务"/>
+      	<macro name="TASKTYPE_MAIN"                 value="2"      	desc="主线任务类型"/>
+      	<macro name="TASKTYPE_GODWEAPON"            value="3"      	desc="神兵任务类型"/>
+      	<macro name="TASKTYPE_BRANCH_PRODUCE"		value="4"    	desc="支线任务(生产)"/>
+      	<macro name="TASKTYPE_BRANCH_SECT"			value="5"    	desc="支线任务(帮派声讨堂)"/>
+      	<macro name="TASKTYPE_BRANCH_PRODUCE2"		value="6"    	desc="支线任务(生产)"/>
+      	<macro name="TASKTYPE_BRANCH_ACTIVE"		value="7"    	desc="支线任务(活动)"/>
+      	<macro name="TASKTYPE_BRANCH_TRAVEL"		value="8"    	desc="支线任务(游历)"/>
+      	<macro name="TASKTYPE_BRANCH_UPSTAR"		value="9"    	desc="支线任务(升星)"/>
+      	<macro name="TASKTYPE_DAILYTRIAL"			value="10"    	desc="日常试炼"/>
+      	<macro name="TASKTYPE_DAILYSCHEDULE"		value="11"		desc="每日活跃度任务"/>
+      	<macro name="TASKTYPE_TRIAL_DEMON"          value="12"    	desc="魔王试炼"/>
+      	<macro name="TASKTYPE_TRIAL_FIVEMOST"       value="13"    	desc="五绝试炼"/>
+      	<macro name="TASKTYPE_TREASUREMAP"          value="14"    	desc="宝藏图"/>
+      	<macro name="TASKTYPE_SECT_DELIVER"         value="15"    	desc="帮派-镖局"/>
+      	<macro name="TASKTYPE_SECT_ROB"				value="16"		desc="帮派-劫镖"/>
+      	<macro name="TASKTYPE_SECT_LINGXIAO"        value="17"    	desc="帮派-凌霄阁"/>
+      	<macro name="TASKTYPE_ARENA"                value="18"    	desc="竞技场"/>
+  	</macrosgroup>
+
+	<struct name="RoleGuideFlow" version="1"  index="iRoleId,iGameSvrId,iGuideId,dtEventTime" filter="1" desc="新手引导记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vOpenid"		        		type="string"		size="64"                               desc="用户Openid号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"												desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iGuideId"             			type="int"     	   			    							desc="任务id" />
+	</struct>
+
+  	<macrosgroup name="STRENGTHEN_TYPE">
+		<macro name="ROLE_STRENGTHEN"				value="1"							desc="人物升级"/>
+      	<macro name="ROLE_CLASSCHANGE"              value="2"      						desc="角色转职"/>
+      	<macro name="MOUNTS_XILIAN"            		value="3"      						desc="坐骑洗练"/>
+      	<macro name="MOUNTS_STAR"					value="4"    						desc="坐骑升星"/>
+      	<macro name="MOUNTS_RIDING"					value="5"    						desc="骑术升级"/>
+      	<macro name="WEAPON_LEVELUP"				value="6"    						desc="神兵升级"/>
+      	<macro name="WEAPON_STARUP"					value="7"    						desc="神兵升星"/>
+      	<macro name="PET_LEVELUP"					value="8"							desc="随从升级"/>
+      	<macro name="PET_STARUP"					value="9"    						desc="随从升星"/>
+      	<macro name="PET_HEXIU"						value="10"    						desc="随从合修"/>
+      	<macro name="EQUIP_STRENGTHEN"				value="11"    						desc="装备强化"/>
+      	<macro name="EQUIP_STARUP"					value="12"    						desc="装备升星"/>
+      	<macro name="EQUIP_EMBED"					value="13"    						desc="装备镶嵌"/>
+      	<macro name="EQUIP_UPGRADE"					value="14"    						desc="装备升阶"/>
+      	<macro name="EQUIP_XILIAN"					value="15"    						desc="装备洗练"/>
+      	<macro name="SKILL_LEVELUP"					value="16"    						desc="武功升级"/>
+      	<macro name="SKILL_ENHANCE"					value="17"    						desc="武功境界"/>
+      	<macro name="SPIRIT_LEVELUP"				value="18"    						desc="气功研读"/>
+      	<macro name="UNIQUESKILL_LEVELUP"			value="19"    						desc="绝技升级"/>
+      	<macro name="GEM_LEVELUP"					value="20"    						desc="宝石升级"/>
+      	<macro name="RAREBOOK_PUSH"					value="21"    						desc="历练藏书"/>
+      	<macro name="GRASP_LEVELUP"					value="22"    						desc="历练参悟"/>
+  	</macrosgroup>
+  	
+  	<macrosgroup name="EQUIPSTRENGTH_TYP">
+		<macro name="EQUIPSTRENGTH_LEVELUP" 		value="0"							desc="装备升级"/>
+		<macro name="EQUIPSTRENGTH_STARUP"  		value="1"							desc="装备升星"/>
+		<macro name="EQUIPSTRENGTH_INLAY" 			value="2"           				desc="装备镶嵌"/>
+		<macro name="EQUIPSTRENGTH_GEMUP" 			value="3" 							desc="宝石升级"/>         
+		<macro name="EQUIPSTRENGTH_REFINE" 			value="4" 							desc="装备精炼 3月24号后新加, 之前没有"/>         
+		<macro name="EQUIPSTRENGTH_EQUIP"			value="5"							desc="穿上或者更换装备"/>
+  	</macrosgroup>
+  	
+	<struct name="RoleEquipStrengthenFlow" 	version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="消费, 购买记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"		size="64"				desc="游戏大区编号"/>
+		<entry name="vOpenid"		        		type="string"		size="64"               desc="用户Openid号"/>
+		<entry name="vChannelId"		    		type="string"       size="64"		        desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"			    	type="datetime"								desc="内部角色Id"/>
+		<entry name="iVip"							type="int"									desc="ip等级"/>
+		<entry name="iLevel"						type="int"									desc="角色等级"/>
+		<entry name="iType"							type="int"									desc="强化类型  0:升级, 1:升星"/>
+		<entry name="iPosition"						type="int"									desc="装备部位"/>
+		<entry name="iSlot"							type="int"									desc="孔位"/>
+		<entry name="iTarLevel"						type="int"									desc="目标等级"/>
+		<entry name="iSuccess"						type="int"									desc="是否成功, 仅针对升星有效, 0:失败, 1:成功"/>
+	</struct>
+
+  	<macrosgroup name="SKILL_DEVELOP_TYPE">
+		<macro name="SKILL_LEVEL_UP"				value="1"							desc="技能升级"/>
+      	<macro name="SKILL_RANK_UP"            		value="2"      						desc="技能升阶"/>
+		<macro name="SKILL_UNLOCK"					value="3"							desc="技能解锁"/>
+		<macro name="RAREBOOK_UNLOCK"				value="4"							desc="藏书解锁"/>
+		<macro name="RAREBOOK_LEVEL_UP"				value="5"							desc="藏书升级"/>
+		<macro name="SPIRIT_UNLOCK"					value="6"							desc="心法解锁"/>
+		<macro name="SPIRIT_LEVEL_UP"				value="7"							desc="心法升级"/>
+		<macro name="UNIQUESKILL_LEVEL_UP"			value="8"							desc="绝技升级"/>
+		<macro name="UNIQUESKILL_SET"				value="9"							desc="绝技装备"/>
+  	</macrosgroup>
+  	
+	<struct name="RoleSkillDevelopFlow" 	version="1"  index="iRoleId,iGameSvrId,dtEventTime,iSkillId" filter="1" desc="消费, 购买记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"		size="64"				desc="游戏大区编号"/>
+		<entry name="vOpenId"		        		type="string"		size="64"               desc="用户OpenId"/>
+		<entry name="vChannelId"		    		type="string"       size="64"		        desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="iVip"							type="int"									desc="vip等级"/>
+		<entry name="dtCreateTime"			    	type="datetime"								desc="角色创建时间"/>
+		<entry name="iSkillId"						type="int"									desc="技能ID"/>
+		<entry name="iType"							type="int"									desc="升级类型"/>
+		<entry name="iAfterLevel"					type="int" 			                        desc="完成后数值"/>
+	</struct>
+
+  	<macrosgroup name="PET_DEVELOP_TYPE">
+		<macro name="PET_UNLOCK"					value="1"							desc="随从解锁"/>
+		<macro name="PET_LEVEL_UP"					value="2"							desc="随从升级"/>
+      	<macro name="PET_STAR_UP"            		value="3"      						desc="随从升星"/>
+      	<macro name="PET_COPRATICE"            		value="4"      						desc="随从合修"/>
+      	<macro name="PET_TRANSFORM"            		value="5"      						desc="随从转职"/>
+  	</macrosgroup>
+  	
+	<struct name="RolePetDevelopFlow" 	version="1"  index="iRoleId,iGameSvrId,dtEventTime,iPetId" filter="1" desc="消费, 购买记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"		size="64"				desc="游戏大区编号"/>
+    	<entry  name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"       size="64"		        desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="iVip"							type="int"									desc="vip等级"/>
+		<entry name="dtCreateTime"			    	type="datetime"								desc="角色创建时间"/>
+		<entry name="iPetId"						type="int"									desc="随从ID"/>
+		<entry name="iType"							type="int"									desc="升级类型"/>
+		<entry name="iAfterLevel"					type="int" 			                        desc="完成后数值"/>
+	</struct>
+
+  	<macrosgroup name="WEAPON_DEVELOP_TYPE">
+		<macro name="WEAPON_UNLOCK"					value="1"							desc="神兵解锁"/>
+		<macro name="WEAPON_LEVEL_UP"				value="2"							desc="神兵升级"/>
+      	<macro name="WEAPON_STAR_UP"            	value="3"      						desc="神兵升星"/>
+      	<macro name="WEAPON_TALENT_UP"            	value="4"      						desc="神兵天赋升级"/>
+      	<macro name="WEAPON_SKILL_UP"            	value="5"      						desc="神兵技能升级"/>
+      	<macro name="WEAPON_EQUIP"            		value="6"      						desc="神兵装备"/>
+  	</macrosgroup>
+  	
+	<struct name="RoleWeaponDevelopFlow" 	version="1"  index="iRoleId,iGameSvrId,dtEventTime,iWeaponId" filter="1" desc="消费, 购买记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"		size="64"				desc="游戏大区编号"/>
+    	<entry  name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"       size="64"		        desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="iVip"							type="int"									desc="vip等级"/>
+		<entry name="dtCreateTime"			    	type="datetime"								desc="角色创建时间"/>
+		<entry name="iWeaponId"						type="int"									desc="神兵ID"/>
+		<entry name="iType"							type="int"									desc="升级类型"/>
+		<entry name="iAfterLevel"					type="int" 			                        desc="完成后数值"/>
+	</struct>
+	
+  	<macrosgroup name="ARMOR_DEVELOP_TYPE">
+		<macro name="ARMOR_UNLOCK"					value="1"							desc="内甲解锁"/>
+		<macro name="ARMOR_LEVEL_UP"				value="2"							desc="内甲升级"/>
+      	<macro name="ARMOR_STAR_UP"            		value="3"      						desc="内甲升星"/>
+      	<macro name="ARMOR_TALENT_UP"            	value="4"      						desc="内甲天赋升级"/>
+      	<macro name="ARMOR_SKILL_UP"            	value="5"      						desc="内甲技能升级"/>
+      	<macro name="ARMOR_EQUIP"            		value="6"      						desc="内甲神兵装备"/>
+  	</macrosgroup>
+  	
+	<struct name="RoleArmorDevelopFlow" 	version="1"  index="iRoleId,iGameSvrId,iArmorId,dtEventTime" filter="1" desc="内甲强化流水">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"		size="64"				desc="游戏大区编号"/>
+    	<entry  name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"       size="64"		        desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="iVip"							type="int"									desc="vip等级"/>
+		<entry name="dtCreateTime"			    	type="datetime"								desc="角色创建时间"/>
+		<entry name="iArmorId"						type="int"									desc="神兵ID"/>
+		<entry name="iType"							type="int"									desc="升级类型"/>
+		<entry name="iAfterLevel"					type="int" 			                        desc="完成后数值"/>
+	</struct>
+	
+
+  	<macrosgroup name="HORSE_DEVELOP_TYPE">
+		<macro name="HORSE_UNLOCK"					value="1"							desc="坐骑激活"/>
+		<macro name="HORSE_CLEAR"					value="2"							desc="坐骑洗练"/>
+      	<macro name="HORSE_STAR_UP"            		value="3"      						desc="坐骑升星"/>
+      	<macro name="HORSE_SKILL_LEARN"           	value="4"      						desc="坐骑技能学习"/>
+      	<macro name="HORSE_SKILL_UP"            	value="5"      						desc="坐骑技能升级"/>
+  	</macrosgroup>
+  	
+	<struct name="RoleHorseDevelopFlow" 	version="1"  index="iRoleId,iGameSvrId,dtEventTime,iHorseId" filter="1" desc="消费, 购买记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"		size="64"				desc="游戏大区编号"/>
+    	<entry  name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"       size="64"		        desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="iVip"							type="int"									desc="vip等级"/>
+		<entry name="dtCreateTime"			    	type="datetime"								desc="角色创建时间"/>
+		<entry name="iHorseId"						type="int"									desc="随从ID"/>
+		<entry name="iType"							type="int"									desc="升级类型"/>
+		<entry name="iSkillId"						type="int"									desc="升级技能ID，若非技能操作为0"/>
+		<entry name="iAfterLevel"					type="int" 			                        desc="完成后数值"/>
+	</struct>
+
+  	<macrosgroup name="SHOP_TYPE">
+		<macro name="NPC_STORE"						value="0"							desc="杂货商店"/>
+		<macro name="SHOP_TYPE_SECT"				value="1"							desc="帮派商城"/>
+      	<macro name="SHOP_TYPE_ARENA"              	value="2"      						desc="竞技商城"/>
+      	<macro name="SHOP_TYPE_SUPERARENA"          value="3"      						desc="会武商城"/>
+      	<macro name="SHOP_TYPE_SECT_DELIVER"        value="4"      						desc="帮派运镖商城"/>
+      	<macro name="GAMBLE_SHOP_TYPE_JUSTICE"      value="11"      					desc="正派赌博商店"/>
+      	<macro name="GAMBLE_SHOP_TYPE_EVIL"         value="12"      					desc="邪派赌博商店"/>
+  	</macrosgroup>
+	
+	<struct name="RoleBuyStoreFlow" 	version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="消费, 购买记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"		size="64"				desc="游戏大区编号"/>
+    	<entry  name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"		size="64"               desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"			    	type="datetime"								desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="等级"/>
+		<entry name="iVipLvl"			    		type="int"									desc="vip等级"/>
+		<entry name="iStoreType"			    	type="int"									desc="商店类型"/>
+		<entry name="iConsumeId"					type="int"									desc="消耗ID"/>
+		<entry name="iConsumeCnt"					type="int"									desc="消耗数量"/>
+		<entry name="iProduceId"					type="int"									desc="商品ID"/>
+		<entry name="iProduceCnt"					type="int"									desc="商品数量"/>
+		<entry name="iProduceItemId"				type="int"									desc="产出物品ID"/>
+		<entry name="iProduceItemCnt"				type="int"									desc="产出物品数量"/>
+	</struct>
+
+	<struct name="RoleBuyMallFlow" 	version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="商城消费, 购买记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"		size="64"				desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"		size="64"               desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"			    	type="datetime"								desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="等级"/>
+		<entry name="iVipLvl"			    		type="int"									desc="vip等级"/>
+		<entry name="iConsumeId"					type="int"									desc="消耗ID"/>
+		<entry name="iConsumeCnt"					type="int"									desc="消耗数量"/>
+		<entry name="iProduceId"					type="int"									desc="商品ID"/>
+		<entry name="iProduceCnt"					type="int"									desc="商品数量"/>
+		<entry name="iProduceItemId"				type="int"									desc="商品对应道具ID"/>
+		<entry name="iProduceItemCnt"				type="int"									desc="商品对应道具数量"/>
+	</struct>
+	
+	<macrosgroup name="ROLE_MARKET_TYPE">
+		<macro name="MARKET_TYPE_PUTON"				 	 value="1"								desc="上架"/>
+		<macro name="MARKET_TYPE_BUY"				 	 value="2"								desc="购买"/>
+  	</macrosgroup>
+  	
+	<struct name="RoleMarketStoreFlow" 	version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="消费, 购买记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"   size="64"					desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"	size="64"	                desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"	size="64"	                desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"			    	type="datetime"								desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="等级"/>
+		<entry name="iVipLvl"			    		type="int"									desc="vip等级"/>
+		<entry name="iType"			    			type="int"									desc="上架/购买商品"/>
+		<entry name="iItem"			    			type="int"									desc="商品Id"/>
+		<entry name="iPrice"			    		type="int"									desc="上架/成交 价格"/>
+		<entry name="iNum"			    			type="int"									desc="上架/成交 数量"/>
+		<entry name="iStatus"			    		type="int"									desc="是否交易成功"/>
+	</struct>
+	
+  	<macrosgroup name="ROLE_PRODUCT_TYPE">
+		<macro name="PRODUCT_TYPE_CREATE"				 	 value="1"								desc="制造"/>
+		<macro name="PRODUCT_TYPE_SPLITE"				 	 value="2"								desc="分解"/>
+  	</macrosgroup>
+	
+	<struct name="RoleProduceFlow" 	version="1"  index="iRoleId,iGameSvrId,dtEventTime,iProductType" filter="1" desc="消费, 购买记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"	size="64"					desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"   size="64"		            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"   size="64"		            desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"      	    	type="datetime"                     		desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="等级"/>
+		<entry name="iVipLvl"			    		type="int"									desc="vip等级"/>
+		<entry name="iProductLevel" 		    	type="int"		 							desc="生产等级" />
+		<entry name="iProductType"			    	type="int"									desc="生产类型"/>
+		<entry name="iItemType"			    		type="int"									desc="武器,防具,神兵,随从,药品,杂物"/>
+		<entry name="iItemId"			    		type="int"									desc="制造消耗的物品"/>
+		<entry name="iItemNum"             			type="int"     	   			    			desc="操作物品数量" />
+	</struct>
+	
+  	<macrosgroup name="ROLE_JOINSECT_TYPE">
+		<macro name="JOINSECT_CREATESECT"				 	 		value="1"								desc="自己创建帮派"/>
+		<macro name="JOINSECT_SENDAPPLICATION"						value="2"								desc="发出加入申请"/>
+		<macro name="JOINSECT_BEACCEPTED"							value="3"								desc="被接纳入帮"/>
+  	</macrosgroup>
+  	
+	<struct name="RoleJoinSectFlow">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"	size="64"					desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"   size="64"		            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"   size="64"		            desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"      	    	type="datetime"                     		desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="等级"/>
+		<entry name="iVipLvl"			    		type="int"									desc="vip等级"/>
+		<entry name="iTargetSect"					type="int"									desc="目标帮会"/>
+		<entry name="iEventType"					type="int"									desc="事件类型"/>
+	</struct>
+
+	<struct name="ArenaRank"			version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="竞技场记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"	size="64"					desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"	size="64"	                desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"	size="64"	                desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"								desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="内部角色等级"/>
+		<entry name="iVip"			    			type="int"									desc="角色Vip等级"/>
+		<entry name="iRank"							type="int"									desc="排名"/>
+		<entry name="iArg"			    			type="int"									desc="其他参数信息"/>
+	</struct>
+		
+	<macrosgroup name="ARENAEVENT_TYPE">
+		<macro  name="ARENAEVENT_APPLY"				value="-1"									desc="开始竞技场"/>
+		<macro  name="ARENAEVENT_START"				value="0"									desc="开始竞技场"/>
+		<macro  name="ARENAEVENT_FINISH"			value="1"									desc="结束竞技场"/>
+	</macrosgroup>
+	
+	<macrosgroup name="SUPERARENA_TYPE">
+		<macro  name="SUPERARENA_2V2"				value="0"									desc="开始竞技场"/>
+		<macro  name="SUPERARENA_4V4"				value="1"									desc="结束竞技场"/>
+	</macrosgroup>
+	
+	<macrosgroup name="ARENA_TYPE">
+		<macro  name="NORMAL"						value="0"									desc="一般竞技"/>
+		<macro  name="BWARENA"						value="1"									desc="正邪道场"/>
+	</macrosgroup>
+	
+	<struct name="ArenaFlow"			version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="竞技场记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"	size="64"					desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"	size="64"	                desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"	size="64"	                desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"								desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="内部角色等级"/>
+		<entry name="iVip"			    			type="int"									desc="角色Vip等级"/>
+		<entry name="iEventType"					type="int"									desc="事件类型  0开始 : 1 结束"/>
+		<entry name="iArg"			    			type="int"									desc="是否成功 0失败  1 成功"/>
+	</struct>
+	
+	<struct name="SuperArenaFlow"		version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="竞技场记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"	size="64"					desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"	size="64"	                desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"	size="64"	                desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"								desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="内部角色等级"/>
+		<entry name="iVip"			    			type="int"									desc="角色Vip等级"/>
+		<entry name="iType"							type="int"									desc="竞技类型"/>
+		<entry name="iEventType"					type="int"									desc="事件类型  0开始 : 1 结束"/>
+		<entry name="iArg"			    			type="int"									desc="是否成功 0失败   1 成功"/>
+	</struct>
+	
+	<struct name="ForceWarFlow"			version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="势力战记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"	size="64"					desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"	size="64"	                desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"	size="64"	                desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"								desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="内部角色等级"/>
+		<entry name="iVip"			    			type="int"									desc="角色Vip等级"/>
+		<entry name="iBW"			    			type="int"									desc="正邪"/>
+		<entry name="iEventType"			    	type="int"									desc="事件类型  0开始 : 1 结束"/>
+		<entry name="iArg"			    			type="int"									desc="是否成功 0失败   1 成功  / 单人组队 (报名时)0单人 1组队"/>
+	</struct>
+	
+	<struct name="BWArenaWarFlow"			version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="正邪战记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"	size="64"					desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"	size="64"	                desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"	size="64"	                desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"								desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="内部角色等级"/>
+		<entry name="iVip"			    			type="int"									desc="角色Vip等级"/>
+		<entry name="iBW"			    			type="int"									desc="正邪"/>
+		<entry name="iEventType"			    	type="int"									desc="事件类型  0开始 : 1 结束"/>
+		<entry name="iArg"			    			type="int"									desc="是否成功 0失败   1 成功"/>
+	</struct>
+	
+	<struct name="ClimbCopyFlow"			version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="势力战记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vGameId"						type="string"	size="64"					desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="vChannelId"		    		type="string"	size="64"	                desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"	size="64"	                desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"									desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"								desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int"									desc="内部角色等级"/>
+		<entry name="iVip"			    			type="int"									desc="角色Vip等级"/>
+		<entry name="iGroupId"			    		type="int"									desc="分组"/>
+		<entry name="iMapId"			    		type="int"									desc=""/>
+		<entry name="iEventType"			    	type="int"									desc="事件类型  0开始 : 1 结束"/>
+		<entry name="iArg"			    			type="int"									desc="是否成功 0失败   1 成功"/>
+	</struct>
+	
+  	<macrosgroup name="SECT_EVENT_TYPE">
+		<macro name="SECT_CREATE"				    value="1"							desc="帮派创建"/>
+      	<macro name="SECT_LEVEL_UP"                 value="2"      						desc="帮派升级"/>
+      	<macro name="SECT_RENAME"            		value="3"      						desc="帮派改名"/>
+      	<macro name="ROLE_JOIN_SECT"				value="4"    						desc="新成员加入帮派"/>
+      	<macro name="ROLE_LEAVE_SECT"				value="5"    						desc="成员离开帮派"/>
+      	<macro name="ROLE_LEAVE_SECT_BY_KICK"		value="6"    						desc="成员被踢出帮派"/>
+      	<macro name="SECT_DISMISS"					value="7"    						desc="帮派解散"/>
+  	</macrosgroup>
+  	
+	<struct name="SectEventFlow"			version="1"  index="iSectId,iEventType,iGameSvrId,dtEventTime" filter="1" desc="帮派事件记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="iSectId"		        		type="int"		                            desc="工会Id"/>
+        <entry name="vSectName"		        		type="string"	size="64"	                desc="工会名称"/>
+		<entry name="iMemberCnt"			    	type="int"									desc="成员数"/>
+		<entry name="iSectLevel"			    	type="int"									desc="帮派等级"/>
+		<entry name="iEventType"			    	type="int"									desc="帮派事件类型"/>
+	</struct>
+	
+  	<macrosgroup name="SECT_MAP_TYPE">
+		<macro name="SECT_MAP_PERSON"				 value="1"								desc="帮派个人本"/>
+      	<macro name="SECT_MAP_GROUP"                 value="2"      						desc="帮派团队本"/>
+  	</macrosgroup>
+	
+  	<macrosgroup name="SECT_ACT_OPERATE_TYPE">
+		<macro name="SECT_ACT_START"				 value="1"								desc="帮派活动开始"/>
+      	<macro name="SECT_ACT_FAIL"                	 value="2"      						desc="帮派活动失败"/>
+      	<macro name="SECT_ACT_FINISH"                value="3"      						desc="帮派活动完成"/>
+  	</macrosgroup>
+
+	<struct name="RoleSectMapJoinFlow" version="1"  index="iRoleId,iMapId,iGameSvrId,dtEventTime" filter="1" desc="帮派副本记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"												desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iSectId"			    		type="int"											        desc="帮派Id"/>
+		<entry name="iMapLevel"             		type="int"     	   			    							desc="地图层级" />
+		<entry name="iMapId"             			type="int"     	   			    							desc="地图ID" />
+		<entry name="iMapType"             			type="int"     	   			    							desc="地图类型" />
+	</struct>
+
+	<struct name="SectMapFlow" version="1"  index="iSectId,iMapId,iOperateType,iGameSvrId,dtEventTime" filter="1" desc="帮派副本记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     		desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="iGameSvrId"		    		type="int"		                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="iSectId"		        		type="int"		                            desc="工会Id"/>
+        <entry name="vSectName"		        		type="string"	size="64"	                desc="工会名称"/>
+		<entry name="iMemberCnt"			    	type="int"									desc="成员数"/>
+		<entry name="iSectLevel"			    	type="int"									desc="帮派等级"/>
+		<entry name="iMapLevel"             		type="int"     	   			    			desc="地图层级" />
+		<entry name="iMapId"             			type="int"     	   			    			desc="地图ID" />
+		<entry name="iMapType"             			type="int"     	   			    			desc="地图类型" />
+		<entry name="iOperateType"             		type="int"     	   			    			desc="操作类型" />
+	</struct>
+	
+  	<macrosgroup name="SECT_DELIVER_TYPE">
+		<macro name="SECT_DELIVER"				 	 value="1"								desc="运镖"/>
+      	<macro name="SECT_ROB"                 	 	 value="2"      						desc="劫镖"/>
+  	</macrosgroup>
+
+	<struct name="RoleSectDeliverFlow" version="1"  index="iRoleId,iOperateType,iDeliverType,iGameSvrId,dtEventTime" filter="1" desc="帮派运镖活动记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"												desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iDeliverType"             		type="int"     	   			    							desc="运镖活动类型" />
+		<entry name="iOperateType"             		type="int"     	   			    							desc="操作类型" />
+		<entry name="iOperateArg"             		type="int"     	   			    							desc="操作参数（开始运镖0表示未投保，1表示投保）" />
+	</struct>
+	
+  	<macrosgroup name="SECT_DIY_SKILL_TYPE">
+		<macro name="SECT_DIY_SKILL_CREATE"				 	 value="1"								desc="创建自创武功"/>
+		<macro name="SECT_DIY_SKILL_SAVE"				 	 value="2"								desc="保存自创武功"/>
+      	<macro name="SECT_DIY_SKILL_DISCARD"                 value="3"      						desc="遗忘自创武功"/>
+      	<macro name="SECT_DIY_SKILL_SHARE"                 	 value="4"      						desc="分享自创武功"/>
+      	<macro name="SECT_DIY_SKILL_BORROW"                	 value="5"      						desc="借用自创武功"/>
+  	</macrosgroup>
+
+	<struct name="RoleSectDiySkillFlow" version="1"  index="iRoleId,iDiySkillType,iGameSvrId,dtEventTime" filter="1" desc="帮派运镖活动记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"												desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iDiySkillType"             	type="int"     	   			    							desc="运镖活动类型" />
+	</struct>
+	
+  	<macrosgroup name="FRIEND_INTERACTION_TYPE">
+		<macro name="INTERACTION_TYPE_SEND_VIT"				 	 value="1"								desc="赠送鸡腿"/>
+  	</macrosgroup>
+
+	<struct name="RoleFriendInteractionFlow" version="1"  index="iRoleId,iInteractionType,iGameSvrId,dtEventTime" filter="1" desc="好友互动记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"												desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iInteractionType"             	type="int"     	   			    							desc="互动类型" />
+		<entry name="iInteractionArg"             	type="int"     	   			    							desc="互动参数" />
+	</struct>
+
+	<struct name="RoleDayEquipFlow" version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="角色日装备记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"												desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iEquip1"             			type="int"     	   			    							desc="装备1" />
+		<entry name="iEquip2"             			type="int"     	   			    							desc="装备2" />
+		<entry name="iEquip3"            		 	type="int"     	   			    							desc="装备3" />
+		<entry name="iEquip4"           		  	type="int"     	   			    							desc="装备4" />
+		<entry name="iEquip5"           		  	type="int"     	   			    							desc="装备5" />
+		<entry name="iEquip6"            		 	type="int"     	   			    							desc="装备6" />
+	</struct>	
+
+	<struct name="RoleDayBagItemFlow" version="1"  index="iRoleId,iItemId,iGameSvrId,dtEventTime" filter="1" desc="角色日背包道具记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"												desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iItemId"             			type="int"     	   			    							desc="道具ID" />
+		<entry name="iItemNum"             			type="int"     	   			    							desc="道具数量" />
+	</struct>	
+
+	<struct name="RoleJoinTeamFlow" version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="角色组队记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"												desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+	</struct>	
+
+	<struct name="RoleDayGemFlow" version="1"  index="iRoleId,iGameSvrId,dtEventTime" filter="1" desc="角色日装备记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"												desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iWearSolt"             		type="int"     	   			    							desc="部位" />
+		<entry name="iGem1"             			type="int"     	   			    							desc="宝石1" />
+		<entry name="iGem2"            		 		type="int"     	   			    							desc="宝石2" />
+		<entry name="iGem3"           		  		type="int"     	   			    							desc="宝石3" />
+	</struct>	
+
+	<struct name="RoleDayBagGemFlow" version="1"  index="iRoleId,iGemId,iGameSvrId,dtEventTime" filter="1" desc="角色日背包道具记录">
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="dtCreateTime"					type="datetime"												desc="角色创建时间"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iGemId"             			type="int"     	   			    							desc="道具ID" />
+		<entry name="iGemNum"             			type="int"     	   			    							desc="道具数量" />
+	</struct>	
+	
+  	<macrosgroup name="ROLE_CHAT_TYPE">
+		<macro name="CHAT_TYPE_ALLSERVER"			value="-1"									desc="全服务器喊话"/>
+		<macro name="CHAT_TYPE_WORLD"				value="0"									desc="世界喊话"/>
+		<macro name="CHAT_TYPE_SECT"				value="1"									desc="帮派聊天"/>
+		<macro name="CHAT_TYPE_TEAM"				value="2"									desc="队伍聊天"/>
+		<macro name="CHAT_TYPE_PRIVATE"				value="3"									desc="私聊"/>
+		<macro name="CHAT_TYPE_FIGHT"				value="4"									desc="战斗"/>
+  	</macrosgroup>
+	
+	<struct name="RoleChatFlow"			version="1"		index="iRoleId,iGameSvrId,dtEventTime"		filter="1"		desc="角色发言记录"	>
+		<entry name="dtEventTime"      	    		type="datetime"                     						desc="游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS" />
+		<entry name="vGameId"						type="string"       size="64"								desc="游戏大区编号"/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"		    		type="int"		                                            desc="(必填)登录的游戏服务器编号"/>
+		<entry name="vChannelId"		    		type="string"	    size="64"	                            desc="游戏登录的渠道编号"/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iType"							type="int"													desc="发言类型, 0世界聊天 1帮派聊天2队伍聊天3私聊"/>
+		<entry name="iTarget"						type="int"													desc="发言目标"/>
+		<entry name="vContent"						type="string"		size="128"								desc="发言类型, 0世界聊天 1帮派聊天2队伍聊天3私聊"/>
+	</struct>
+	
+  	<macrosgroup name="MARRIAGE_ACT_TYPE">
+		<macro name="MARRIAGE_REQUEST"				value="0"									desc="求婚"/>
+		<macro name="MARRIAGE_RESPONSE"				value="1"									desc="回应求婚"/>
+		<macro name="MARRIAGE_WALK"					value="2"									desc="结婚游行"/>
+		<macro name="MARRIAGE_BANQUET"				value="3"									desc="婚宴"/>
+		<macro name="MARRIAGE_DIVORCE"				value="4"									desc="离婚"/>
+  	</macrosgroup>
+	
+	<struct name="RoleMarriageFlow" 	version="1"		index="iRoleId,iGameSvrId,dtEventTime"			filter="1"			desc="">
+		<entry name="dtEventTime"					type="datetime"												desc=""/>
+		<entry name="vGameId"						type="string"		size="64"								desc=""/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"					type="int"													desc=""/>
+		<entry name="vChannelId"					type="string"		size="64"								desc=""/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iPartnerRoleId"			    type="int"											        desc="内部角色Id"/>
+		<entry name="iPartnerLevel"			    	type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iPartnerVipLevel" 		    	type="int"		 								            desc="Vip等级" />
+		<entry name="iMarriageId"					type="int"													desc=""/>
+		<entry name="iType"							type="int"													desc=""/>
+		<entry name="iArg"							type="int"													desc=""/>
+	</struct>
+	
+	<struct name="RoleTakePBTCashBackFlow" 		version="1"			index="iRoleId,iGameSvrId,dtEventTime"	filter="1"			desc="">
+		<entry name="dtEventTime"					type="datetime"												desc=""/>
+		<entry name="vGameId"						type="string"		size="64"								desc=""/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"					type="int"													desc=""/>
+		<entry name="vChannelId"					type="string"		size="64"								desc=""/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iBid"							type="int"													desc=""/>
+		<entry name="iBackScore"					type="int"													desc=""/>
+		<entry name="iBackScoreLevel"				type="int"													desc=""/>
+		<entry name="iArg"							type="int"													desc=""/>
+	</struct>
+
+    <macrosgroup name="EMERGENCY_ACT_TYPE">
+        <macro name="EMERGENCY_JOIN_MAP"			value="0"													desc="开始正义之心副本"/>
+        <macro name="EMERGENCY_FINISH_MAP"			value="1"													desc="结束正义之心副本"/>
+    </macrosgroup>
+
+	<struct name="RoleEmergencyActivityFlow" 	version="1"			index="iRoleId,iGameSvrId,dtEventTime"	filter="1"			desc="">
+		<entry name="dtEventTime"					type="datetime"												desc=""/>
+		<entry name="vGameId"						type="string"		size="64"								desc=""/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"					type="int"													desc=""/>
+		<entry name="vChannelId"					type="string"		size="64"								desc=""/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iEventType" 		    		type="int"		 								            desc="事件类型" />
+		<entry name="iArg"							type="int"													desc=""/>
+	</struct>
+	
+  	<macrosgroup name="JUSTICE_ACT_TYPE">
+		<macro name="JUSTICE_JOIN_MAP"				value="0"													desc="开始正义之心副本"/>
+        <macro name="JUSTICE_FINISH_MAP"			value="1"													desc="结束正义之心副本"/>
+  	</macrosgroup>
+	
+	<struct name="RoleJusticeActivityFlow" 	version="1"				index="iRoleId,iGameSvrId,dtEventTime"	filter="1"			desc="">
+		<entry name="dtEventTime"					type="datetime"												desc=""/>
+		<entry name="vGameId"						type="string"		size="64"								desc=""/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"					type="int"													desc=""/>
+		<entry name="vChannelId"					type="string"		size="64"								desc=""/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iEventType" 		    		type="int"		 								            desc="事件类型" />
+		<entry name="iArg"							type="int"													desc=""/>
+	</struct>
+
+    <macrosgroup name="STELE_ACT_TYPE">
+        <macro name="STELE_JOIN_EVENT"				value="0"													desc="开始正义之心副本"/>
+        <macro name="STELE_FINISH_EVENT"			value="1"													desc="结束正义之心副本"/>
+    </macrosgroup>
+
+	<struct name="RoleSteleActivityFlow" 		version="1"				index="iRoleId,iGameSvrId,dtEventTime"	filter="1"			desc="">
+		<entry name="dtEventTime"					type="datetime"												desc=""/>
+		<entry name="vGameId"						type="string"		size="64"								desc=""/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"					type="int"													desc=""/>
+		<entry name="vChannelId"					type="string"		size="64"								desc=""/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iEventType" 		    		type="int"		 								            desc="事件类型" />
+		<entry name="iArg"							type="int"													desc=""/>
+	</struct>
+
+    <macrosgroup name="FIGHTNPC_ACT_TYPE">
+        <macro name="FIGHTNPC_JOIN_EVENT"				value="0"													desc="开始正义之心副本"/>
+        <macro name="FIGHTNPC_FINISH_EVENT"			value="1"													desc="结束正义之心副本"/>
+    </macrosgroup>
+
+	<struct name="RoleFightNpcActivityFlow" 	version="1"				index="iRoleId,iGameSvrId,dtEventTime"	filter="1"			desc="">
+		<entry name="dtEventTime"					type="datetime"												desc=""/>
+		<entry name="vGameId"						type="string"		size="64"								desc=""/>
+    	<entry name="vOpenId"			type="string"		size="64"						  desc="(必填)用户UId号" />
+		<entry name="iGameSvrId"					type="int"													desc=""/>
+		<entry name="vChannelId"					type="string"		size="64"								desc=""/>
+		<entry name="vUid"		        			type="string"		size="64"                               desc="用户Uid号"/>
+		<entry name="iRoleId"			    		type="int"											        desc="内部角色Id"/>
+		<entry name="iLevel"			    		type="int" 			                                    	desc="玩家等级"/>
+		<entry name="iVipLevel" 		    		type="int"		 								            desc="Vip等级" />
+		<entry name="iEventType" 		    		type="int"		 								            desc="事件类型" />
+		<entry name="iWin" 		    				type="int"		 								            desc="事件类型" />
+		<entry name="iArg"							type="int"													desc=""/>
+	</struct>
+</metalib>

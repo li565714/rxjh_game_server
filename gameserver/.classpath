@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/.svn/**" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="../../jket/dist/1/jket/kdb.jar"/>
+	<classpathentry kind="lib" path="../../jket/dist/1/jket/kio.jar" sourcepath="C:/i3k/NewEngine/logic/jket/kio/src"/>
+	<classpathentry kind="lib" path="../../jket/dist/1/jket/kutil.jar" sourcepath="c:/i3k/NewEngine/logic/jket/kutil/src"/>
+	<classpathentry kind="lib" path="../../jket/extlib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="../../jket/extlib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="../../jket/extlib/poi-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="../../jket/extlib/poi-ooxml-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="../../jket/extlib/poi-ooxml-schemas-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="../../jket/extlib/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="../../jket/extlib/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/org.json.jar"/>
+	<classpathentry kind="lib" path="lib/dc-serversdk-java-1.0.7-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.25-bin.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
+

@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--修订记录 
+modified at 2016.4.22
+joypie game RXJH
+-->
+<metalib name="QJCTX" version="14" urlencode="true" encoding="utf-8" encryption="false" proto="binary" open_platform="false">
+  <command name="cmd" desc="IDIP前端协议">
+  	<entry cmd="10102000" req="IDIP_DO_BAN_USR_REQ" rsp="IDIP_DO_BAN_USR_RSP" req_value="partition=Partition#roleId=RoleId#endTime=EndTime#reason=Reason" rsp_value="" desc="禁止用户登陆"/>
+  	<entry cmd="10102001" req="IDIP_DO_UNBAN_USR_REQ" rsp="IDIP_DO_UNBAN_USR_RSP" req_value="partition=Partition#roleId=RoleId" rsp_value="" desc="解禁用户登陆"/>
+  	<entry cmd="10102002" req="IDIP_DO_BAN_USR_CHAT_REQ" rsp="IDIP_DO_BAN_USR_CHAT_RSP" req_value="partition=Partition#roleId=RoleId#endTime=EndTime#reason=Reason" rsp_value="" desc="对用户禁言"/>
+  	<entry cmd="10102003" req="IDIP_DO_UNBAN_USR_CHAT_REQ" rsp="IDIP_DO_UNBAN_USR_CHAT_RSP" req_value="partition=Partition#roleId=RoleId" rsp_value="" desc="解禁用户禁言"/>
+  	<entry cmd="10102004" req="IDIP_DO_KICK_ONLINE_USR_REQ" rsp="IDIP_DO_KICK_ONLINE_USR_RSP" req_value="partition=Partition#roleId=RoleId" rsp_value="" desc="在线踢人"/>
+  	<entry cmd="10102005" req="IDIP_DO_PUSH_MAIL_ALL_REQ" rsp="IDIP_DO_PUSH_MAIL_ALL_RSP" req_value="partition=Partition#title=Title#body=Body#lifeTime=LifeTime#levelMin=LevelMin#levelMax=LevelMax#vipMin=VipMin#vipMax=VipMax#channelReq=ChannelReq#awards=Awards" rsp_value="" desc="全服邮件"/>
+  	<entry cmd="10102006" req="IDIP_DO_PUSH_MAIL_USR_REQ" rsp="IDIP_DO_PUSH_MAIL_USR_RSP" req_value="partition=Partition#roleId=RoleId#title=Title#body=Body#lifeTime=LifeTime#attList_count=AttList_count#awards=Awards" rsp_value="" desc="向指定的玩家发送邮件"/>
+  	<entry cmd="10102007" req="IDIP_DO_GET_CHAT_RECORD_REQ" rsp="IDIP_DO_GET_CHAT_RECORD_RSP" req_value="partition=Partition" rsp_value="attListCount=AttListCount#messages=Messages" desc="获取聊天记录"/>
+  	<entry cmd="10102008" req="IDIP_DO_ADD_ROLL_NOTICE_REQ" rsp="IDIP_DO_ADD_ROLL_NOTICE_RSP" req_value="Partition=partition#Body=body#Cycle=cycle#StartTime=startTime#EndTime=endTime" rsp_value="NoticeId=noticeId" desc="添加走马灯公告"/>
+  	<entry cmd="10102009" req="IDIP_DO_DELETE_ROLL_NOTICE_REQ" rsp="IDIP_DO_DELETE_ROLL_NOTICE_RSP" req_value="Partition=partition#NoticeId=noticeId" rsp_value="" desc="删除走马灯公告"/>
+  	<entry cmd="10102010" req="IDIP_DO_INQUIRY_ROLE_INFO_REQ" rsp="IDIP_DO_INQUIRY_ROLE_INFO_RSP" req_value="Partition=partition#RoleId=roleId" rsp_value="RoleId=roleId#RoleName=roleName#ServerId=serverId#Level=level#VipLevel=vipLevel#PayNum=payNum#CreateTime=createTime#Channel=channel#IsOnline=isOnline#LastLoginTime=lastLoginTime#Money=money#Diamond=diamond#BanStatus=banStatus#DiamondFUseTotal=diamondFUseTotal#DiamondRUseTotal=diamondRUseTotal#ClassType=calssType#TransfromLvl=transfromLvl#BWType=bwType#Gender=gender" desc="角色信息查询"/>
+  	<entry cmd="10102011" req="IDIP_DO_INQUIRY_ROLE_ID_BY_NAME_REQ" rsp="IDIP_DO_INQUIRY_ROLE_ID_BY_NAME_RSP" req_value="Partition=partition#RoleName=roleName" rsp_value="RoleId=roleId" desc="根据玩家名字查询玩家roleID"/>
+  	<entry cmd="10102012" req="IDIP_DO_QUERY_SERVER_INFO_REQ" rsp="IDIP_DO_QUERY_SERVER_INFO_RSP" req_value="" rsp_value="OpenTime=openTime#OnlineCount=onlineCount#RoleTotalCreate=roleTotalCreate" desc="获取服务器列表"/>
+  	<entry cmd="10102013" req="IDIP_DO_REGISTER_MAIL_REQ" rsp="IDIP_DO_REGISTER_MAIL_RSP" req_value="Partition=partiton#Title=title#Body=body#channelReq=ChannelReq#Awards=awards#EndTime=endTime" rsp_value="RemailId=remailId" desc="添加注册邮件"/>
+  	<entry cmd="10102014" req="IDIP_DO_REGISTER_MAIL_DEL_REQ" rsp="IDIP_DO_REGISTER_MAIL_DEL_RSP" req_value="Partition=partiton#RemailId=remailId" rsp_value="" desc="注册邮件删除"/>
+  	<entry cmd="10102015" req="IDIP_DO_CHANGE_ROLE_LEVEL_REQ" rsp="IDIP_DO_CHANGE_ROLE_LEVEL_RSP" req_value="Partition=partiton#RoleId=roleId#Level=level" rsp_value="" desc="修改角色等级"/>
+  	<entry cmd="10102016" req="IDIP_DO_CHANGE_ROLE_VIP_POINT_REQ" rsp="IDIP_DO_CHANGE_ROLE_VIP_POINT_RSP" req_value="Partition=partiton#RoleId=roleId#Point=point" rsp_value="" desc="修改角色VIP点数"/>
+  	<entry cmd="10102017" req="IDIP_DO_ADD_ROLE_GOD_PAY_REQ" rsp="IDIP_DO_ADD_ROLE_GOD_PAY_RSP" req_value="Partition=partiton#RoleId=roleId#PayLevel=payLevel" rsp_value="" desc="增加角色充值"/>
+  	<entry cmd="10102018" req="IDIP_DO_QUERY_ROLES_REQ" rsp="IDIP_DO_QUERY_ROLES_RSP" req_value="Partition=partiton#OpenId=openId" rsp_value="AttListCount=attListCount#Roles=roles" desc="查询账户角色"/>
+  	<entry cmd="10102019" req="IDIP_DO_SEND_ROLE_GIFT_REQ" rsp="IDIP_DO_SEND_ROLE_GIFT_RSP" req_value="Partition=partiton#OpenId=openId#RoleId=roleId#ConditionType=conditionType#ConditionValue=conditionValue#Awards=awards#Action=action" rsp_value="" desc="应用宝发送奖励"/>
+  	<entry cmd="10102020" req="IDIP_DO_ADD_ROLE_VIP_POINT_REQ" rsp="IDIP_DO_ADD_ROLE_VIP_POINT_RSP" req_value="Partition=partiton#RoleId=roleId#Point=point" rsp_value="" desc="增加角色VIP点数"/>
+  </command>
+  <macrosgroup name="NET_CMD_ID" desc="IDIP命令编码">
+    <!-- 封号禁言  -->
+    <macro name="IDIP_DO_BAN_USR_REQ" value="0x1001" desc="禁止用户登陆请求"/>
+    <macro name="IDIP_DO_BAN_USR_RSP" value="0x1002" desc="禁止用户登陆应答"/>
+    <macro name="IDIP_DO_UNBAN_USR_REQ" value="0x1003" desc="解禁用户禁止登陆请求"/>
+    <macro name="IDIP_DO_UNBAN_USR_RSP" value="0x1004" desc="解禁用户禁止登陆应答"/>
+    <macro name="IDIP_DO_BAN_USR_CHAT_REQ" value="0x1005" desc="对用户禁言请求"/>
+    <macro name="IDIP_DO_BAN_USR_CHAT_RSP" value="0x1006" desc="对用户禁言应答"/>
+    <macro name="IDIP_DO_UNBAN_USR_CHAT_REQ" value="0x1007" desc="解禁用户禁言请求"/>
+    <macro name="IDIP_DO_UNBAN_USR_CHAT_RSP" value="0x1008" desc="解禁用户禁言应答"/>
+    <macro name="IDIP_DO_KICK_ONLINE_USR_REQ" value="0x1009" desc="在线踢人请求"/>
+    <macro name="IDIP_DO_KICK_ONLINE_USR_RSP" value="0x100a" desc="在线踢人应答"/>
+    <!-- 邮件接收  -->
+    <macro name="IDIP_DO_PUSH_MAIL_ALL_REQ" value="0x100b" desc="全服邮件请求"/>
+    <macro name="IDIP_DO_PUSH_MAIL_ALL_RSP" value="0x100c" desc="全服邮件应答"/>
+    <macro name="IDIP_DO_PUSH_MAIL_USR_REQ" value="0x100d" desc="向指定的玩家发送邮件请求"/>
+    <macro name="IDIP_DO_PUSH_MAIL_USR_RSP" value="0x100e" desc="向指定玩家发送邮件应答"/>
+    <!-- 聊天记录 -->
+    <macro name="IDIP_DO_GET_CHAT_RECORD_REQ" value="0x100f" desc="获取服务器最近50条消息请求"/>
+    <macro name="IDIP_DO_GET_CHAT_RECORD_RSP" value="0x1010" desc="获取服务器最近50条消息应答"/>
+    <!-- 走马灯公告 -->
+    <macro name="IDIP_DO_ADD_ROLL_NOTICE_REQ" value="0x1011" desc="添加走马灯公告请求"/>
+    <macro name="IDIP_DO_ADD_ROLL_NOTICE_RSP" value="0x1012" desc="添加走马灯公告应答"/>
+    <macro name="IDIP_DO_DELETE_ROLL_NOTICE_REQ" value="0x1013" desc="删除走马灯公告请求"/>
+    <macro name="IDIP_DO_DELETE_ROLL_NOTICE_RSP" value="0x1014" desc="删除走马灯公告应答"/>
+    <!-- 角色信息查询 -->
+    <macro name="IDIP_DO_INQUIRY_ROLE_INFO_REQ" value="0x1015" desc="查询角色信息请求"/>
+    <macro name="IDIP_DO_INQUIRY_ROLE_INFO_RSP" value="0x1016" desc="查询角色信息应答"/>
+    <!-- 查询玩家roleID -->
+    <macro name="IDIP_DO_INQUIRY_ROLE_ID_BY_NAME_REQ" value="0x1017" desc="查询玩家roleID请求"/>
+    <macro name="IDIP_DO_INQUIRY_ROLE_ID_BY_NAME_RSP" value="0x1018" desc="查询玩家RoleID应答"/>
+    <!-- 获取服务器列表 -->
+    <macro name="IDIP_DO_QUERY_SERVER_INFO_REQ" value="0x1019" desc="获取服务器列表请求"/>
+    <macro name="IDIP_DO_QUERY_SERVER_INFO_RSP" value="0x101a" desc="获取服务器列表应答"/>
+    <!-- 注册邮件 -->
+    <macro name="IDIP_DO_REGISTER_MAIL_REQ" value="0x101b" desc="添加注册邮件请求"/>
+    <macro name="IDIP_DO_REGISTER_MAIL_RSP" value="0x101c" desc="添加注册邮件应答"/>
+    <macro name="IDIP_DO_REGISTER_MAIL_DEL_REQ" value="0x101d" desc="删除注册邮件请求"/>
+    <macro name="IDIP_DO_REGISTER_MAIL_DEL_RSP" value="0x101e" desc="删除注册邮件应答"/>
+    <!-- 修改角色信息 -->
+    <macro name="IDIP_DO_CHANGE_ROLE_LEVEL_REQ" value="0x1020" desc="修改角色等级请求"/>
+    <macro name="IDIP_DO_CHANGE_ROLE_LEVEL_RSP" value="0x1021" desc="修改角色等级应答"/>
+    <macro name="IDIP_DO_CHANGE_ROLE_VIP_POINT_REQ" value="0x1022" desc="修改角色VIP点数请求"/>
+    <macro name="IDIP_DO_CHANGE_ROLE_VIP_POINT_RSP" value="0x1023" desc="修改角色VIP点数应答"/>
+    <macro name="IDIP_DO_ADD_ROLE_GOD_PAY_REQ" value="0x1024" desc="添加角色充值请求"/>
+    <macro name="IDIP_DO_ADD_ROLE_GOD_PAY_RSP" value="0x1025" desc="添加角色充值应答"/>
+    <!-- 应用宝接口 -->
+    <macro name="IDIP_DO_QUERY_ROLES_REQ" value="0x1026" desc="查询账户角色请求"/>
+    <macro name="IDIP_DO_QUERY_ROLES_RSP" value="0x1027" desc="查询账户角色应答"/>
+    <macro name="IDIP_DO_SEND_ROLE_GIFT_REQ" value="0x1028" desc="应用宝发送奖励请求"/>
+    <macro name="IDIP_DO_SEND_ROLE_GIFT_RSP" value="0x1029" desc="应用宝发送奖励应答"/>
+    
+    <macro name="IDIP_DO_ADD_ROLE_VIP_POINT_REQ" value="0x1030" desc="增加角色VIP点数请求"/>
+    <macro name="IDIP_DO_ADD_ROLE_VIP_POINT_RSP" value="0x1031" desc="增加角色VIP点数应答"/>
+    
+  </macrosgroup>
+  <macrosgroup name="NET_MACRO" desc="系统宏">
+    <macro name="IDIP_BODY_LENGTH" value="24000" desc="封装包包体的最大值, 基本的数据包的大小在15K以下，只有查询邮件列表这个数据量比较大，在23K左右"/>
+    <macro name="SERVICE_NAME_LENGTH" value="16" desc="SERVICENAME的最大长度"/>
+    <macro name="AUTHENTICATE_LENGTH" value="32" desc="加密串的最大长度"/>
+    <macro name="ERROR_MSG_LENGTH" value="100" desc="错误码"/>
+    <macro name="MAX_OPENID_LEN" value="64" desc="openid的长度"/>
+	<!-- my declare value -->
+	<macro name="MAX_MESSAGES_LEN" value="1000" desc="聊天消息数组最大值"/>
+	<macro name="MAX_ROLE_NAME_LEN" value="30" desc="玩家名字最大长度"/>
+	<macro name="MAX_CHANNEL_NAME_LEN" value="30" desc="渠道名字最大长度"/>
+	<macro name="MAX_UID_LEN" value="64" desc="UID最大长度"/>
+	<macro name="MAX_CHAT_MESSAGE_LEN" value="200" desc="聊天消息最大长度"/>
+	<macro name="MAX_MAILTITLE_LEN" value="30" desc="邮件标题的长度"/>
+	<macro name="MAX_MAILCONTENT_LEN" value="900" desc="邮件内容的长度"/>
+	<macro name="MAX_MOVING_NOTICE_LEN" value="200" desc="走马灯公告内容最大长度"/>
+	<macro name="MAX_SERVER_NAME_LEN" value="30" desc="服务器名字最大长度"/>
+	<macro name="MAX_REASON_LEN" value="64" desc="封禁原因的长度"/>
+	<macro name="MAX_ATTLIST_NUM" value="4" desc="邮件附件物品列表的数组长度"/>
+	<macro name="MAX_LEVEL" value="1000" desc="最大等级"/>
+	<macro name="MIN_LEVEL" value="1" desc="最小等级"/>
+	<macro name="MAX_VIP_LEVEL" value="100" desc="最大VIP等级"/>
+	<macro name="MIN_VIP_LEVEL" value="0" desc="最小VIP等级"/>
+	<macro name="MAX_ROLE_SIZE" value="4" desc="最大角色数量"/>
+	<macro name="MAX_SEND_ACTION_LENGTH" value="15" desc="最大动作标识长度"/>
+	<macro name="MAX_OPENID_LENGTH" value="60" desc="最大OPENID长度"/>
+	<macro name="MAX_CHANNEL_LEN" value="25" desc="最大动作标识长度"/>
+  </macrosgroup>
+  
+  <struct name="IdipHeader" desc="IDIP消息头">
+    <entry name="PacketLen" type="uint32" desc="包长"/>
+    <entry name="Cmdid" type="uint32" desc="命令ID"/>
+    <entry name="Seqid" type="uint32" desc="流水号"/>
+    <entry name="ServiceName" type="string" size="SERVICE_NAME_LENGTH" desc="服务名"/>
+    <entry name="SendTime" type="uint32" desc="发送时间YYYYMMDD对应的整数"/>
+    <entry name="Version" type="uint32" desc="版本号"/>
+    <entry name="Authenticate" type="string" size="AUTHENTICATE_LENGTH" desc="加密串"/>
+    <entry name="Result" type="int32" desc="错误码,返回码类型：0：处理成功，需要解开包体获得详细信息,1：处理成功，但包体返回为空，不需要处理包体（eg：查询用户角色，用户角色不存在等），-1: 网络通信异常,-2：超时,-3：数据库操作异常,-4：API返回异常,-5：服务器忙,-6：其他错误,小于-100 ：用户自定义错误，需要填写szRetErrMsg"/>
+    <entry name="RetErrMsg" type="string" size="ERROR_MSG_LENGTH" desc="错误信息"/>
+  </struct>
+  <struct name="IdipDataPaket" desc="IDIP数据包">
+    <entry name="IdipHead" type="IdipHeader" desc="包头信息"/>
+    <entry name="IdipBody" type="string" size="IDIP_BODY_LENGTH" desc="包体信息"/>
+  </struct>
+  
+  <!-- data structure -->
+  <struct name="CommonItems" desc="物品id + 物品count">
+  	<entry name="id" type="int32" desc="物品ID" test="0" isverify="true" isnull="true"/>
+  	<entry name="count" type="int32" desc="物品数量" test="0" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="Message" desc="单条聊天消息内容">
+  	<entry name="roleId" type="int32" desc="玩家roleID" test="1" isverify="true" isnull="true"/>
+  	<entry name="roleName" type="string" size="MAX_ROLE_NAME_LEN" desc="玩家名字" test="name" isverify="true" isnull="true"/>
+  	<entry name="roleTime" type="int32" desc="发言时间" test="1" isverify="true" isnull="true"/>
+  	<entry name="body" type="string" size="MAX_CHAT_MESSAGE_LEN" desc="聊天信息内容" test="message" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="ServerOverview" desc="服务器列表信息">
+  	<entry name="serverId" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="serverName" type="string" size="MAX_SERVER_NAME_LEN" desc="服务器名字" test="server" isverify="true" isnull="true"/>
+  	<entry name="openTime" type="int32" desc="服务器开服时间" test="1" isverify="true" isnull="true"/>
+  	<entry name="onlineCount" type="int32" desc="在线玩家数量" test="1" isverify="true" isnull="true"/>
+  	<entry name="roleTotalCreate" type="int32" desc="在线玩家数量" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="YYBRoleInfo" desc="应用宝角色信息">
+  	<entry name="roleId" type="int32" desc="玩家roleID" test="1" isverify="true" isnull="true"/>
+  	<entry name="roleName" type="string" size="MAX_ROLE_NAME_LEN" desc="玩家名字" test="name" isverify="true" isnull="true"/>
+  </struct>
+  
+  
+  <!-- 封号禁言  -->
+  <struct name="DoBanUsrReq" id="IDIP_DO_BAN_USR_REQ" desc="禁止登陆请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="角色ID，可以为多个以;隔开" test="1" isverify="true" isnull="true"/>
+  	<entry name="LeftTime" type="int32" dsec="持续时间（秒）" test="1" isverify="true" isnull="true"/>
+  	<entry name="Reason" type="string" desc="封号原因" size="MAX_REASON_LEN" isverify="false" isnull="true"/>
+  </struct>
+  <struct name="DoBanUsrRsp" id="IDIP_DO_BAN_USR_RSP" desc="禁止登陆应答">
+  </struct>
+  
+  <struct name="DoUnBanUsrReq" id="IDIP_DO_UNBAN_USR_REQ" desc="解禁用户登陆请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="角色ID，可以为多个以;隔开" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoUnBanUsrRsp" id="IDIP_DO_UNBAN_USR_RSP" desc="解禁用户登陆应答">
+  </struct>
+  
+  <struct name="DoBanUsrChatReq" id="IDIP_DO_BAN_USR_CHAT_REQ" desc="用户禁言请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="角色ID，可以为多个以;隔开" test="1" isverify="true" isnull="true"/>
+  	<entry name="LeftTime" type="int32" dsec="持续时间（秒）" test="1" isverify="true" isnull="true"/>
+  	<entry name="Reason" type="string" desc="禁言原因" size="MAX_REASON_LEN" isverify="false" isnull="true"/>
+  </struct>
+  <struct name="DoBanUsrChatRsp" id="IDIP_DO_BAN_USR_CHAT_RSP" desc="用户禁言应答">
+  </struct>
+  
+  <struct name="DoUnBanUsrChatReq" id="IDIP_DO_UNBAN_USR_CHAT_REQ" desc="解禁用户禁言请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="角色ID，可以为多个以;隔开" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoUnBanUsrChatRsp" id="IDIP_DO_UNBAN_USR_CHAT_RSP" desc="解禁用户禁言应答">
+  </struct>
+  
+  <struct name="DoKickOnlineUsrReq" id="IDIP_DO_KICK_ONLINE_USR_REQ" desc="在线踢人请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="角色ID，可以为多个以;隔开" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoKickOnlineUsrRsp" id="IDIP_DO_KICK_ONLINE_USR_RSP" desc="在线踢人应答">
+  </struct>
+  
+  <!-- 邮件接收  -->
+  <struct name="DoPushMailAllReq" id="IDIP_DO_PUSH_MAIL_ALL_REQ" desc="全服邮件请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="Title" type="string" desc="邮件标题" test="mail title" size="MAX_MAILTITLE_LEN" isverify="false" isnull="true"/>
+  	<entry name="Body" type="string" desc="内容" test="mail context" size="MAX_MAILCONTENT_LEN" isverify="false" isnull="true"/>
+  	<entry name="LifeTime" type="int32" desc="邮件的生命周期" test="1" isverify="true" isnull="true"/>
+  	<entry name="LevelMin" type="int32" desc="等级限制" test="1" isverify="true" isnull="true"/>
+  	<entry name="LevelMax" type="int32" desc="等级限制" test="1" isverify="true" isnull="true"/>
+  	<entry name="VipMin" type="int32" desc="vip等级限制" test="1" isverify="true" isnull="true"/>
+  	<entry name="VipMax" type="int32" desc="vip等级限制" test="1" isverify="true" isnull="true"/>
+  	<entry name="ChannelCount" type="int32" desc="可领取渠道数量(0-25)" test="1" isverify="false" isnull="true"/>
+  	<entry name="ChannelReq" type="string" size="MAX_CHANNEL_LEN" param="vector,struct,ChannelCount,1,|, " desc="可领取channel列表，格式2001;1002" isverify="false" isnull="true"/>
+  	<entry name="AttListCount" type="int32" desc="附件物品列表的最大数量(0-4)" test="1" isverify="false" isnull="true"/>
+  	<entry name="Awards" type="CommonItems" size="MAX_ATTLIST_NUM" param="vector,struct,AttListCount,1,|, " desc="奖励列表,格式3001_1;3002_10" isverify="false" isnull="true"/>
+  </struct>
+  <struct name="DoPushMailAllRsp" id="IDIP_DO_PUSH_MAIL_ALL_RSP" desc="全服邮件应答">
+  </struct>
+  
+  <struct name="DoPushMailUsrReq" id="IDIP_DO_PUSH_MAIL_USR_REQ" desc="向玩家发送邮件请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="用户id" test="1" isverify="true" isnull="true"/>
+  	<entry name="Title" type="string" desc="邮件标题" test="mail title" size="MAX_MAILTITLE_LEN" isverify="false" isnull="true"/>
+  	<entry name="Body" type="string" desc="内容" test="mail context" size="MAX_MAILCONTENT_LEN" isverify="false" isnull="true"/>
+  	<entry name="LifeTime" type="int32" desc="邮件生命周期" test="1" isverify="true" isnull="true"/>
+  	<entry name="AttListCount" type="int32" desc="附件物品列表的最大数量(0-4)" test="1" isverify="false" isnull="true"/>
+  	<entry name="Awards" type="CommonItems" size="MAX_ATTLIST_NUM" param="vector,struct,AttListCount,1,|, " desc="奖励列表,格式3001_1;3002_10" isverify="false" isnull="true"/>
+  </struct>
+  <struct name="DoPushMailUsrRsp" id="IDIP_DO_PUSH_MAIL_USR_RSP" desc="向玩家发送邮件应答">
+  </struct>
+  
+  <!-- 聊天记录 -->
+  <struct name="DoGetChatRecordReq" id="IDIP_DO_GET_CHAT_RECORD_REQ" desc="获取服务器最近50条聊天消息请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoGetChatRecordRsp" id="IDIP_DO_GET_CHAT_RECORD_RSP" desc="获取服务器最近50条聊天消息应答">
+  	<entry name="AttListCount" type="int32" desc="List长度" test="1" isverify="false" isnull="true"/>
+  	<entry name="Messages" type="Message" size="MAX_MESSAGES_LEN" param="vector,struct,AttListCount,1,|, " desc="聊天消息数组" isverify="false" isnull="true"/>
+  </struct>
+  
+  <!-- 走马灯 -->
+  <struct name="DoAddRollNoticeReq" id="IDIP_DO_ADD_ROLL_NOTICE_REQ" desc="添加走马灯公告请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="Body" type="string" size="MAX_MOVING_NOTICE_LEN" test="this is notice" isverify="true" isnull="true"/>
+  	<entry name="Cycle" type="int32" desc="循环间隔-秒" test="10" isverify="true" isnull="true"/>
+  	<entry name="startTime" type="int32" desc="开始时间" test="1" isverify="true" isnull="true"/>
+  	<entry name="LeftTime" type="int32" desc="持续时间（秒）" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoAddRollNoticeRsp" id="IDIP_DO_ADD_ROLL_NOTICE_RSP" desc="添加走马灯公告应答">
+  	<entry name="NoticeId" type="int32" desc="公告ID" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoDeleteRollNoticeReq" id="IDIP_DO_DELETE_ROLL_NOTICE_REQ" desc="删除走马灯公告请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="NoticeId" type="int32" desc="公告ID" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoDeleteRollNoticeRsp" id="IDIP_DO_DELETE_ROLL_NOTICE_RSP" desc="删除走马灯公告应答">
+  </struct>
+  
+  <!-- 角色信息查询  -->
+  <struct name="DoInquiryRoleInfoReq" id="IDIP_DO_INQUIRY_ROLE_INFO_REQ" desc="查询角色信息请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="玩家RoleID" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoInquiryRoleInfoRsp" id="IDIP_DO_INQUIRY_ROLE_INFO_RSP" desc="查询角色信息应答">
+  	<entry name="RoleId" type="int32" desc="玩家RoleID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleName" type="string" size="MAX_ROLE_NAME_LEN" desc="玩家名字" test="roleName" isverify="true" isnull="true"/>
+  	<entry name="ServerId" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="Level" type="int32" desc="玩家等级" test="1" isverify="true" isnull="true"/>
+  	<entry name="VipLevel" type="int32" desc="玩家Vip等级" test="0" isverify="true" isnull="true"/>
+  	<entry name="PayNum" type="int32" desc="总充值金额" test="0" isverify="true" isnull="true"/>
+  	<entry name="CreateTime" type="int32" desc="角色创建时间" test="0" isverify="true" isnull="true"/>
+  	<entry name="Channel" type="string" size="MAX_CHANNEL_NAME_LEN" desc="渠道" test="2071" isverify="true" isnull="true"/>
+  	<entry name="Uid" type="string" size="MAX_UID_LEN" desc="渠道" isverify="true" isnull="true"/>
+  	<entry name="IsOnline" type="int32" desc="是否在线" test="1" isverify="true" isnull="true"/>
+  	<entry name="LastLoginTime" type="int32" desc="最后登录时间" test="1" isverify="true" isnull="true"/>
+  	<entry name="Money" type="int32" desc="角色当前金币数量" test="1" isverify="true" isnull="true"/>
+  	<entry name="bindMoney" type="int32" desc="角色当前绑定金币数量" test="1" isverify="true" isnull="true"/>
+  	<entry name="Diamond" type="int32" desc="角色当前钻石数量" test="1" isverify="true" isnull="true"/>
+  	<entry name="bindDiamond" type="int32" desc="角色当前绑定钻石数量" test="1" isverify="true" isnull="true"/>
+  	<entry name="BanStatus" type="int32" desc="是否被封禁" test="0" isverify="true" isnull="true"/>
+  	<entry name="DiamondFUseTotal" type="int32" desc="角色消耗总非绑定元宝数量" test="1" isverify="true" isnull="true"/>
+  	<entry name="DiamondRUseTotal" type="int32" desc="角色消耗总绑定元宝数量" test="1" isverify="true" isnull="true"/>
+  	<entry name="ClassType" type="int8" desc="职业" test="0" isverify="true" isnull="true"/>
+  	<entry name="TransfromLvl" type="int8" desc="转职等级" test="0" isverify="true" isnull="true"/>
+  	<entry name="BWType" type="int8" desc="正邪" test="0" isverify="true" isnull="true"/>
+  	<entry name="Gender" type="int8" desc="性别" test="0" isverify="true" isnull="true"/>
+  </struct>
+  
+  <!-- 查询玩家roleID -->
+  <struct name="DoInquiryRoleIdByNameReq" id="IDIP_DO_INQUIRY_ROLE_ID_BY_NAME_REQ" desc="查询玩家roleID请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleName" type="string" size="MAX_ROLE_NAME_LEN" desc="玩家名字" test="roleName" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoInquiryRoleIdByNameRsp" id="IDIP_DO_INQUIRY_ROLE_ID_BY_NAME_RSP" desc="查询玩家roleID应答">
+  	<entry name="RoleId" type="int32" desc="玩家roleID" test="1" isverify="true" isnull="true"/>
+  </struct>
+  
+  <!-- 获取服务器列表 -->
+  <struct name="DoQueryServerInfoReq" id="IDIP_DO_QUERY_SERVER_INFO_REQ" desc="获取服务器列表请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoQueryServerInfoRsp" id="IDIP_DO_QUERY_SERVER_INFO_RSP" desc="获取服务器列表应答">
+ 	<entry name="OpenTime" type="int32"  desc="开服时间" isverify="true" isnull="true"/>
+ 	<entry name="OnlineCount" type="int32" desc="在线数量" isverify="true" isnull="true"/>
+ 	<entry name="RoleTotalCreate" type="int32" desc="在线数量" isverify="true" isnull="true"/>
+  </struct>
+  
+  <!-- 注册邮件 -->
+  <struct name="DoAddRegisterMailReq" id="IDIP_DO_REGISTER_MAIL_REQ" desc="添加注册邮件请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="Title" type="string" size="MAX_MAILTITLE_LEN" desc="标题" test="title" isverify="true" isnull="true"/>
+  	<entry name="Body" type="string" size="MAX_MAILCONTENT_LEN" desc="内容" test="body" isverify="true" isnull="true"/>
+  	<entry name="ChannelCount" type="int32" desc="可领取渠道数量(0-25)" test="1" isverify="false" isnull="true"/>
+  	<entry name="ChannelReq" type="string" size="MAX_CHANNEL_LEN" param="vector,struct,ChannelCount,1,|, " desc="可领取channel列表，格式2001;1002" isverify="false" isnull="true"/>
+  	<entry name="AttListCount" type="int32" desc="附件物品列表的最大数量(0-4)" test="1" isverify="false" isnull="true"/>
+  	<entry name="Awards" type="CommonItems" size="MAX_ATTLIST_NUM" param="vector,struct,AttListCount,1,|, " desc="奖励列表,格式3001_1;3002_10" isverify="false" isnull="true"/>
+  </struct>
+  <struct name="DoAddRegisterMailRsp" id="IDIP_DO_REGISTER_MAIL_RSP" desc="添加注册邮件应答">
+ 	<entry name="RemailId" type="int32" desc="邮件ID" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoDelRegisterMailReq" id="IDIP_DO_REGISTER_MAIL_DEL_REQ" desc="删除注册邮件请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RemailId" type="int32" desc="邮件ID" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoDelRegisterMailRsp" id="IDIP_DO_REGISTER_MAIL_DEL_RSP" desc="删除注册邮件应答">
+  </struct>
+  
+  <!-- 修改角色信息 -->
+  <struct name="DoChangeRoleLevelReq" id="IDIP_DO_CHANGE_ROLE_LEVEL_REQ" desc="修改角色等级请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="角色ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="Level" type="int32" desc="等级" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoChangeRoleLevelRsp" id="IDIP_DO_CHANGE_ROLE_LEVEL_RSP" desc="修改角色等级应答">
+  </struct>
+  <struct name="DoChangeRoleVipPointReq" id="IDIP_DO_CHANGE_ROLE_VIP_POINT_REQ" desc="修改角色VIP点数请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="角色ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="Point" type="int32" desc="增量vip点" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoChangeRoleVipPointRsp" id="IDIP_DO_CHANGE_ROLE_VIP_POINT_RSP" desc="修改角色VIP点数应答">
+  </struct>
+  <struct name="DoAddRoleVipPointReq" id="IDIP_DO_ADD_ROLE_VIP_POINT_REQ" desc="修改角色VIP点数请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="角色ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="Point" type="int32" desc="增量vip点" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoAddRoleVipPointRsp" id="IDIP_DO_ADD_ROLE_VIP_POINT_RSP" desc="修改角色VIP点数应答">
+  </struct>
+  <struct name="DoAddRoleGodPayReq" id="IDIP_DO_ADD_ROLE_GOD_PAY_REQ" desc="增加角色充值请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="角色ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="PayLevel" type="int32" desc="增量vip点" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoAddRoleGodPayRsp" id="IDIP_DO_ADD_ROLE_GOD_PAY_RSP" desc="增加角色充值应答">
+  </struct>
+  
+  <!-- 应用宝接口 -->
+  <struct name="DoQueryRolesReq" id="IDIP_DO_QUERY_ROLES_REQ" desc="查询账户角色请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="OpenId" type="string" size="MAX_OPENID_LENGTH" desc="账号ID" test="1" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoQueryRolesRsp" id="IDIP_DO_QUERY_ROLES_RSP" desc="查询账户角色应答">
+  	<entry name="AttListCount" type="int32" desc="List长度" test="1" isverify="false" isnull="true"/>
+  	<entry name="Roles" type="YYBRoleInfo" size="MAX_ROLE_SIZE" param="vector,struct,AttListCount,1,|, " desc="聊天消息数组" isverify="false" isnull="true"/>
+  </struct>
+  <struct name="DoSendRoleGiftReq" id="IDIP_DO_SEND_ROLE_GIFT_REQ" desc="应用宝发送奖励请求">
+  	<entry name="Partition" type="int32" desc="服务器ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="OpenId" type="string" size="MAX_OPENID_LENGTH" desc="账号ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="RoleId" type="int32" desc="角色ID" test="1" isverify="true" isnull="true"/>
+  	<entry name="ConditionType" type="int32" desc="条件类型" test="1" isverify="true" isnull="true"/>
+  	<entry name="ConditionValue" type="int32" desc="条件数值" test="1" isverify="true" isnull="true"/>
+  	<entry name="AttListCount" type="int32" desc="奖励的最大数量(0-4)" test="1" isverify="false" isnull="true"/>
+  	<entry name="Awards" type="CommonItems" size="MAX_ATTLIST_NUM" param="vector,struct,AttListCount,1,|, " desc="奖励列表,格式3001_1;3002_10" isverify="false" isnull="true"/>
+  	<entry name="Action" type="string" size="MAX_SEND_ACTION_LENGTH" desc="查询动作" test="check_send" isverify="true" isnull="true"/>
+  </struct>
+  <struct name="DoSendRoleGiftRsp" id="IDIP_DO_SEND_ROLE_GIFT_RSP" desc="应用宝发送奖励应答">
+  </struct>
+</metalib>

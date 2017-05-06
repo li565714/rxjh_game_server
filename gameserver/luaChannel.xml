@@ -1,0 +1,15 @@
+﻿<luachannel name="S2C" comment="server to client">				
+	<packet name="role_login_res">
+		<field name="x" type="float"/>
+		<field name="y" type="float"/>
+		<field name="z" type="float"/>
+	</packet>
+</luachannel>
+	
+<luachannel name="C2S" comment="client to server">				
+	<packet name="role_login_req">
+		<field name="x" type="int32"/>
+		<field name="y" type="int32"/>
+		<field name="z" type="int32"/>
+	</packet>
+</luachannel>

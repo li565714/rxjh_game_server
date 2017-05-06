@@ -1,0 +1,85 @@
+
+<project name="gs" default="createsql">
+	
+	<property name="jketdir" location="../../jket"/>
+	<property name="rpcgenoutdir" location="./rpcgenout"/>
+	<property name="keygenoutdir" location="./keygenout" />
+	<property name="gameservicedir" location="../../gameservice/gs" />
+	<property name="extlibjar" location="${jketdir}/extlib/poi-3.9-20121203.jar
+		;${jketdir}/extlib/poi-ooxml-3.9-20121203.jar
+		;${jketdir}/extlib/poi-ooxml-schemas-3.9-20121203.jar
+		;${jketdir}/extlib/log4j-1.2.16.jar
+		;${jketdir}/extlib/xmlbeans-2.3.0.jar"
+	/>
+	
+	<property name="ketlibjar" location="${jketdir}/dist/1/jket/kutil.jar
+		;${jketdir}/dist/1/jket/kio.jar
+		;${jketdir}/dist/1/jket/kdb.jar"
+	/>
+	
+	<property name="gameservicejar" location="${gameservicedir}/dist/gameservice.jar" />
+	<target name="clean">
+		<delete includeemptydirs="true" quiet="true">
+			<fileset dir="${rpcgenoutdir}" includes="**/*"/>
+		</delete>
+		<delete file="./gs.jar" quiet="true"/>
+	</target>
+	
+	<target name="gs">
+		<javac srcdir="./src" destdir="./bin" includeantruntime="on">
+			<compilerarg line="-encoding GBK " />
+		    <classpath>
+		    	<pathelement location="${ketlibjar}" />
+		    	<pathelement location="${gameservicejar}" />
+		    </classpath>
+		</javac>
+		<jar jarfile="./gs.jar" basedir="./bin"/>
+		<jar jarfile="../../../artres/datatools/lib/gs.jar" basedir="./bin"/>
+	</target>
+	<target name="rpcgen">
+		<java classname="ket.kio.RPCGen" classpath="${ketlibjar}">
+			<arg value="--src=rpc.xml"/>
+			<arg value="--outdir=${rpcgenoutdir}"/>
+		</java>
+	</target>
+	<target name="qqmetagen" depends="gs, rpcgen">
+		<java classname="i3k.gtool.QQMetaGen" classpath="./gs.jar;${ketlibjar}">
+			<arg value="--src=qsg_idip.xml"/>
+			<arg value="--packName=i3k"/>
+			<arg value="--beanName=IDIP"/>
+			<arg value="--outdir=${rpcgenoutdir}"/>
+		</java>
+		<java classname="i3k.gtool.QQMetaGen" classpath="./gs.jar;${ketlibjar}">
+			<arg value="--src=qsg_tlog.xml"/>
+			<arg value="--packName=i3k"/>
+			<arg value="--beanName=TLog"/>
+			<arg value="--outdir=${rpcgenoutdir}"/>
+		</java>
+	</target>
+	<target name="createsql" depends="qqmetagen" description="run the java program, parse qsg_tlog.xml create sql file" >
+	    <!-- run the java program -->
+		<java classname="i3k.logger.LogDBCreater" classpath="./gs.jar;${ketlibjar}" fork="true">
+			<arg file="qsg_tlog.xml" />
+			<arg file="tlog.sql" />
+			<arg value="tlog" />
+		</java>
+		
+	  	<copy todir="../../../artres/datatools">
+	  		<fileset dir=".">
+				<include name="qsg_tlog.xml" />
+	  		</fileset>
+	  	</copy>
+	 </target>
+	<target name="dist" depends="createsql"/>
+	<target name="keygen" depends="gs, rpcgen">
+		<mkdir dir="${keygenoutdir}"/>
+		<java classname="i3k.gtool.CDKeyGen" fork="true" classpath="./gs.jar;${ketlibjar}" >
+			<arg line="${args}" />
+			<arg value="--outdir=${keygenoutdir}"/>
+		</java>
+  </target>
+	
+</project>
+
+
+

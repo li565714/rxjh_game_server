@@ -1,0 +1,856 @@
+select dtEventTime,iGameSvrId,vOpenId,vUId,iRoleId,vRoleName,dtCreateTime,max(iLevel),iDiamondF,iVipLvl,sum(iRolePayPoint) as sum from (select * from RoleLoginout order by dtEventTime desc) as t group by vOpenId having sum >= 40000 into outfile '/data/mysql-files/kr11062.txt';
+
+
+
+<server idipId="1" id="20023" name="풍연" host="172.29.0.60" port="3306" dbname="gmview" username="tomcat" password="" />
+<server idipId="1" id="20024" name="자담" host="172.29.0.60" port="3306" dbname="gmview" username="tomcat" password="" />
+<server idipId="1" id="20025" name="위지흔" host="172.29.0.60" port="3306" dbname="gmview" username="tomcat" password="" />
+
+select * from RolePayFlow where dtEventTime > '2017-11-11' and dtEventTime < '2017-11-13' into outfile '/data/mysql-files/payFlow1113.txt'
+
+select * from RoleEventFlow where dtEventTime > '2017-11-11' and dtEventTime < '2017-11-13' and iEventType=443 into outfile '/data/mysql-files/sharedpaygifttake.txt';
+
+
+        <server idipId="1" id="20026" name="반금천" host="172.29.0.61" port="3306" dbname="gmview" username="tomcat" password="" />
+        <server idipId="1" id="20027" name="채홍" host="172.29.0.61" port="3306" dbname="gmview" username="tomcat" password="" />
+        <server idipId="1" id="20028" name="임철곤" host="172.29.0.61" port="3306" dbname="gmview" username="tomcat" password="" />
+
+
+        <server name="" id="20026" ip="172.29.0.100" port="1101" />
+        <server name="" id="20027" ip="172.29.0.143" port="1101" />
+        <server name="" id="20028" ip="172.29.0.124" port="1101" />
+
+select * from RolePayFlow where iGameSvrId in(2081,2082,2083,2084) and dtEventTime > '2017-11-10 14:00:00' and dtEventTime < '2017-11-14' into outfile '/data/mysql-files/2081pay.txt';
+
+
+1.停服
+2.执行  updateFiles.sh
+3.开白名单
+4.cfgserver  akakao目录执行 update20050.sh
+5.cfgserver  ilongtu目录执行 update20050.sh
+6.开服
+7.测试
+8.关白名单
+
+
+1.停服
+2.执行  updateAllServer.sh
+3.开白名单
+4.cfgserver  akakao目录执行 update20050.sh
+5.cfgserver  ilongtu目录执行 update20050.sh
+6.开服
+7.测试
+8.关白名单
+
+scp tomcat@169.56.113.70:/home/tomcat/deploy/area210/conf/server_cfg.dat .   nN-KF4was9XQ_0
+
+select * from RoleEventFlow where iRoleId=4001896 and iEventId=261 and dtEventTime>'2017-11-14';
+
+select * from ArenaFlow where iRoleId=4001896 and dtEventTime>'2017-11-14' and iEventType=1;
+
+
+
+#!/bin/bash
+
+for file in result/
+do
+   echo "$file is file"
+   mysql -utomcat < $file
+done
+
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class Test {
+    public static void main(String[] arg) throws Exception
+    {
+        StringBuilder sb = new StringBuilder();
+        String partition = createPartition();
+        File file = new File("tlog.sql");
+        FileReader fin = new FileReader(file);
+        BufferedReader br = new BufferedReader(fin);
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            if (line.contains("CREATE TABLE")) {
+                sb.append("ALTER TABLE ");
+                sb.append(line.split(" ")[2]);
+                sb.append(" ADD PARTITION (\n");
+                sb.append(partition);
+                sb.append(");\n\n");
+            }
+        }
+        br.close();
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("result.sql")), "UTF-8"));
+        bw.write(sb.toString());
+        bw.newLine();
+        bw.close();
+    }
+
+    public static String createPartition()
+    {
+        StringBuilder sb = new StringBuilder();
+        Calendar c = Calendar.getInstance();
+        c.set(2017, 6, 14);
+        Date d = c.getTime();
+        Date now = new Date();
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyyMMdd");
+        for (int i = 0; i <= 135; ++i)
+        {
+            sb.append("PARTITION p_").append(dateFormat2.format(new Date(d.getTime() + i * 24 * 60 * 60 * 1000l)));
+            sb.append(" VALUES IN (to_days('")
+                    .append(dateFormat1.format(new Date(d.getTime() + i * 24 * 60 * 60 * 1000l))).append("'))");
+            if ( i == 135 )
+                sb.append("\n");
+            else
+                sb.append(",\n");
+        }
+        return sb.toString();
+    }
+}
+
+
+
+#!/bin/bash
+Distribute(){
+#read -p "what is your ssh distribute IP? " IP
+for IP in $(cat /root/script/distribute_ip.txt);do
+    Passwd=$1
+    USER=$2
+    echo $IP $Passwd
+    expect -c "
+        spawn ssh-copy-id -i /root/.ssh/id_rsa.pub $USER@$IP
+            expect {
+                \"*yes/no*\" {send \"yes\r\"; exp_continue}
+                \"*password*\" {send \"$Passwd\r\"; exp_continue}
+                \"*password*\" {send \"$Passwd\r\";}
+        }
+"
+done
+#if [ $? -eq 0 ]
+#then
+#  echo "ssh $IP ok"
+#else
+#  echo "not $IP ok"
+#fi
+}
+Distribute "R" root
+
+dtEventTime
+iSequence
+iGameSvrId
+vGameAppId
+vOpenId
+vChannel
+vUId
+iRoleId
+dtCreateTime
+iLevel
+iVipLvlBefore
+iVipLvlFinal
+iAddPayPoint
+iUserPayPointFinal
+iRolePayPointFinal
+iPayId
+iPayLvl
+iPayLvlTimes
+iPayAmount
+iAddDiamondF
+iDiamondF
+vSerial
+
+update accountinfo set bid=1 where channel<>'0000';
+
+
+select * from RoleEventFlow where dtEventTime > '2017-12-08' and dtEventTime < '2017-12-08 01:00:00' and iEventId in (357,386) into outfile '/data/mysql-files/1208luckyroller.txt';
+
+grant select on *.* to longtu@localhost identified by 'ltrxjhmysql123';
+grant select on *.* to longtu@127.0.0.1 identified by 'ltrxjhmysql123';
+
+
+s4V_=ygsDrL55T
+
+update user set Password = PASSWORD('s4V_=ygsDrL55T') where user = 'root';
+
+
+select * from RoleLoginout where dtEventTime > '2017-11-16' and dtEventTime < '2017-12-07' and iInOutType = 1 into outfile '/data/mysql-files/1211login.txt';
+
+select * from ForceWarFlow where dtEventTime > '2017-11-16' and dtEventTime < '2017-12-07' and iEventType = 0 into outfile '/data/mysql-files/1211forcewar.txt';
+
+select * from RoleMarriageFlow where dtEventTime > '2017-11-16' and dtEventTime < '2017-12-07' and iType = 1 and iArg = 1 into outfile '/data/mysql-files/1211jiehun.txt';
+
+
+dtEventTime
+iGameSvrId
+vGameId
+vOpenId
+vChannelId
+vUid
+iRoleId
+dtCreateTim
+iLevel
+iVip
+iBW
+iEventType
+iArg
+
+
+dtEventTime
+vGameId
+vOpenId
+iGameSvrId
+vChannelId
+vUid
+iRoleId
+iLevel
+iVipLevel
+iPartnerRoleId
+iPartnerLevel
+iPartnerVipLevel
+iMarriageId
+iType
+iArg
+
+java -Xmx1G -classpath lib/kutil.jar:lib/gs.jar:lib/poi-3.9-20121203.jar:lib/poi-ooxml-3.9-20121203.jar:lib/poi-ooxml-schemas-3.9-20121203.jar:lib/log4j-1.2.16.jar:lib/dom4j-1.6.1.jar:lib/xmlbeans-2.3.0.jar i3k.logger.LogDBTables qsg_tlog.xml ./result ../ls/log/tlogbk.log.2017-11-16* ../ls/log/tlogbk.log.2017-11-17* ../ls/log/tlogbk.log.2017-11-18* ../ls/log/tlogbk.log.2017-11-19* ../ls/log/tlogbk.log.2017-11-20* ../ls/log/tlogbk.log.2017-11-21* ../ls/log/tlogbk.log.2017-11-22* ../ls/log/tlogbk.log.2017-11-23* ../ls/log/tlogbk.log.2017-11-24* ../ls/log/tlogbk.log.2017-11-25* ../ls/log/tlogbk.log.2017-11-26*
+
+
+
+
+select iGameSvrId,vUId,iRoleId,iLevel,sum(iAddPayPoint) as sumAddPayPoint from RolePayFlow where dtEventTime > '2017-11-01' and dtEventTime < '2017-12-01' group by iRoleId having sum(iAddPayPoint) > 40000 into outfile '/data/mysql-files/1213.txt';
+
+
+insert into RoleMarketStoreFlow values('2017-09-30 00:59:50', '10009', '1920005', '12536107', '2001', '12536107', '9025841', '2017-08-29 01:55:18', '61', '0', '1', '-66121', '8', '1', '1');
+
+
+md5sum lib/gs.jar
+md5sum conf/server_cfg.dat
+md5sum conf/mapdeploy.xml
+md5sum gs/db/dbcfg.xml
+md5sum fs/dbfight/dbcfg.xml
+md5sum as/dbauction/dbcfg.xml
+md5sum ss/dbsocial/dbcfg.xml
+
+md5sum lib/gs.jar
+md5sum conf/server_cfg.dat
+md5sum conf/mapdeploy.xml
+md5sum dbcfg/db/dbcfg.xml
+md5sum dbcfg/dbfight/dbcfg.xml
+md5sum dbcfg/dbauction/dbcfg.xml
+md5sum dbcfg/dbsocial/dbcfg.xml
+
+alter table RoleEventFlow drop partition p_20171031;
+alter table RoleCurrencyChangeFlow_R drop partition p_20171031;
+alter table RoleCurrencyChangeFlow_F drop partition p_20171031;
+
+
+select iGameSvrId,vOpenId,iRoleId,sum(iPrice) from RoleMarketStoreFlow where iType = 2 and dtEventTime > '2017-12-17' and dtEventTime < '2017-12-27' group by iRoleId into outfile '/data/mysql-files/marketBuy.txt';
+
+select vOpenId,iRoleId,
+
+
+select dtEventTime,iGameSvrId,vUId,iRoleId,vRoleName,iDiamondF,iVipLvl,iRolePayPoint from (select * from RoleLoginout order by dtEventTime desc) as t where iDiamondF>=10000 group by iRoleId;
+
+10.240.0.32
+10.240.0.33
+10.240.0.34
+10.240.0.9
+10.240.0.199
+
+select iGameSvrId,vUId,iRoleId,iLevel,sum(iAddPayPoint) as sumAddPayPoint from RolePayFlow where dtEventTime > '2017-12-01' and dtEventTime < '2018-01-01' group by iRoleId having sum(iAddPayPoint) > 40000 into outfile '/data/mysql-files/0105.txt';
+
+select dtEventTime,iGameSvrId,vOpenId,vUId,iRoleId,vRoleName,dtCreateTime,iLevel,iDiamondF,iVipLvl,iRolePayPoint from (select * from RoleLoginout order by dtEventTime desc) as t where dtEventTime > '2017-11-01' and dtEventTime < '2017-12-01' and iRolePayPoint>=40000 group by iRoleId into outfile '/data/mysql-files/kr1106.txt';
+
+
+<Host name="localhost"  appBase=""
+            unpackWARs="true" autoDeploy="true">
+    <Context path="" docBase="*********" debug="0" reloadable="true" crossContext="true"/>
+    <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log." suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+</Host>
+
+
+package i3k;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Test {
+    public static void main(String[] arg) throws Exception
+    {
+        StringBuilder sb = new StringBuilder();
+        File file = new File("E:\\224.txt");
+        FileReader fin = new FileReader(file);
+        BufferedReader br = new BufferedReader(fin);
+        String regEx="[^0-9]";
+        Pattern p = Pattern.compile(regEx);
+
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            String serverID = "";
+            String channelID = "";
+            String openID = "";
+            String roleID = "";
+            String consumID = "";
+            String consumCnt = "";
+            String consumeDate = "";
+            String consumeTime = "";
+            String[] strs = line.split("\\|");
+            for (String s : strs) {
+                if (s.contains("consume_date")) {
+                    consumeDate = s.substring(13,23);
+                }
+                if (s.contains("consume_time")) {
+                    consumeTime = s.substring(13,21);
+                }
+                if (s.contains("clientid")) {
+                    serverID = p.matcher(s).replaceAll("").trim();
+                }
+                if (s.contains("snid")) {
+                    channelID = p.matcher(s).replaceAll("").trim();
+                }
+                if (s.contains("openid")) {
+                    openID = p.matcher(s).replaceAll("").trim();
+                }
+                if (s.contains("roleid")) {
+                    roleID = p.matcher(s).replaceAll("").trim();
+                }
+                if (s.contains("goodsnum")) {
+                    consumID = p.matcher(s).replaceAll("").trim();
+                }
+                if (s.contains("goodsprice")) {
+                    consumCnt = p.matcher(s).replaceAll("").trim();
+                }
+            }
+            sb.append(consumeDate).append(" ").append(consumeTime).append("\t").append(serverID).append("\t").append(channelID).append("\t").append(openID).append("\t").append(roleID).append("\t").append(consumID).append("\t").append(consumCnt).append("\n");
+            System.out.println(sb.toString());
+        }
+        br.close();
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("E:\\result.txt")), "UTF-8"));
+        bw.write(sb.toString());
+        bw.newLine();
+        bw.close();
+    }
+
+
+    BI_consume_d|IP{175.223.49.155}|gameid{1020016}|clientid{20026}|snid{2001}|openid{8191895}|roleid{26000420}|level{44}|vip_level{0}|consume_timestamp{1511261862}|consume_sum_b{50}|own_after_b{481}|consume_sum_fb{0}|own_after_fb{0}|poundage{0}|goodsid{224}|goodsprice{50}|goodsnum{1}|consume_wayid{224}|consume_wayclassid{224}|consume_date{2017-11-21}|consume_time{19:57:42}|extend_1{}|extend_2{}
+
+
+    dl33734944yo@163.com----im087446--
+
+    4825724757
+
+    select iGameSvrId,vUId,iRoleId,iLevel,sum(iAddPayPoint) as sumAddPayPoint from RolePayFlow where dtEventTime > '2018-01-26' and dtEventTime < '2018-01-27' group by iRoleId having sum(iAddPayPoint) >= 4000 into outfile '/data/mysql-files/0127.txt';
+
+
+    select * from RolePayFlow where dtEventTime > '2018-01-26' and dtEventTime < '2018-01-27' into outfile '/data/mysql-files/0127kr.txt';
+
+
+    select * from RoleEventFlow where dtEventTime > '2018-01-09 10:00:00' and dtEventTime < '2018-01-30 11:00:00' and iEventId = 255 into outfile '/data/mysql-files/0131.txt';
+
+dtEventTime
+iSequence
+iGameSvrId
+vGameAppId
+vOpenId
+vChannel
+vUId
+iRoleId
+iLevel
+iVipLvl
+iEventId
+vConsumeItems
+vProduceItems
+iArg1
+iArg2
+iArg3
+iArg4
+vArg
+
+
+INSERT INTO user VALUES ('00b928b1-30d9-49d4-afc7-71741921d923','北京','xpeng',NULL,'2013-07-23 00:00:00','xpeng@c.com',NULL,'N','1355716',NULL,'F','彭新',NULL,'EMPLOYE','项目管理部');
+
+select dtEventTime,iGameSvrId,vOpenId,vUId,iRoleId,vRoleName,dtCreateTime,iLevel,iDiamondF,iVipLvl,iRolePayPoint from (select * from RoleLoginout order by dtEventTime desc) as t where dtEventTime > '2018-01-01' and dtEventTime < '2018-02-01' and iRolePayPoint>=40000 group by iRoleId into outfile '/data/mysql-files/kr0201.txt';
+
+
+select iGameSvrId,vUId,iRoleId,iLevel,sum(iAddPayPoint) as sumAddPayPoint from RolePayFlow where dtEventTime > '2018-01-01' and dtEventTime < '2018-02-01' group by iRoleId having sum(iAddPayPoint) > 40000 into outfile '/data/mysql-files/0202.txt';
+
+select dtEventTime,vChannel,iGameSvrId,vUId,iRoleId,iAddDiamondF,iPayId from RolePayFlow where dtEventTime > '2018-02-02' and dtEventTime < '2018-02-05' into outfile '/data/mysql-files/0206.txt';
+
+use new_stats;
+select * from new_roleinfo where type = 6 into outfile '/data/mysql-files/0209.txt';
+
+
+
+/home/tomcat/rxjh/game/gs/db/backup/kdbbackup_20180212120000.tar.gz
+
+
+select * from RoleEventFlow where iEventId = 359 and iArg2 = 6 and dtEventTime > '2018-02-01' into outfile '/data/mysql-files/0212.txt';
+
+select iRoleId,iRoleType from RoleLoginout where iRoleId in (select iRoleId from RolePayFlow where iGameSvrId = 20034 and dtEventTime > '2018-02-26 16:00:00' and dtEventTime < '2018-02-27 15:26:00') group by iRoleId into outfile '/data/mysql-files/200340228roletype.txt';
+
+
+
+dtEventTime
+iSequence
+iGameSvrID
+iAreaID
+iPlatID
+vopenid
+iRoleID
+iLevel
+iVipLvl
+iPay
+iDiamond
+iVipLvlBefore
+iPayBefore
+iPayLvlID
+iPayAmount
+iDiamondCnt
+vSerial
+
+
+select * from RoleEventFlow where dtEventTime > '2018-02-26' and dtEventTime < '2018-02-27' and iEventId = 76 into outfile '/data/mysql-files/0228flashsale.txt';
+
+select a.dtEventTime,a.vUId,a.iRoleId,b.iRoleType from RolePayFlow a left join RoleLoginout b on a.iRoleId = b.iRoleId where a.dtEventTime > '2018-02-26 16:00:00' and a.dtEventTime < '2018-02-27 15:26:00' and a.iGameSvrId = 20034 into outfile '/data/mysql-files/20034pay.txt';
+
+select a.dtEventTime,a.vUId,a.iRoleId,(select b.iRoleType from RoleLoginout b where b.iRoleId = a.iRoleId limit 1) from RolePayFlow a where a.dtEventTime > '2018-02-26 16:00:00' and a.dtEventTime < '2018-02-27 15:26:00' and a.iGameSvrId = 20034 into outfile '/data/mysql-files/20034pay4.txt';
+
+role.syncEndMine
+
+select iGameSvrId,vUId,iRoleId,iLevel,sum(iAddPayPoint) as sumAddPayPoint from RolePayFlow where dtEventTime > '2018-02-01' and dtEventTime < '2018-03-01' group by iRoleId having sum(iAddPayPoint) > 40000 into outfile '/data/mysql-files/0302.txt';
+
+package i3k;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.OutputStreamWriter;
+import java.util.regex.Pattern;
+
+public class Test {
+    public static void main(String[] arg) throws Exception
+    {
+        StringBuilder sb = new StringBuilder();
+        File file = new File("E:\\back.txt");
+        FileReader fin = new FileReader(file);
+        BufferedReader br = new BufferedReader(fin);
+        String regEx="[^0-9]";
+        Pattern p = Pattern.compile(regEx);
+
+        sb.append("use accountgifts;\n");
+        sb.append("SET autocommit=0;\n");
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            sb.append("insert into accountinfo (bid,channel,uid,arg) values ('0','0000',");
+            String[] ls = line.split(",");
+            sb.append("'").append(ls[0]).append("',");
+            sb.append("'").append(ls[2]).append("');\n");
+
+        }
+        sb.append("SET autocommit=1;\n");
+        br.close();
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("E:\\result.sql")), "UTF-8"));
+        bw.write(sb.toString());
+        bw.newLine();
+        bw.close();
+    }
+}
+
+select dtEventTime,iGameSvrId,iRoleId,vChannel,iAddDiamondF from RolePayFlow where dtEventTime > '2018-03-10' and dtEventTime < '2018-03-12' into outfile '/data/mysql-files/payFlow0314.txt';
+
+select * from RoleLoginout where dtEventTime > '2018-03-14' and iGameSvrId = 10001 and iLevel >= 70 and iInOutType = 1 into outfile '/data/mysql-files/0316.txt';
+
+alter table `RoleBuyStoreFlow` add column `iConsumeId2` int(10) after `iConsumeCnt`;
+alter table `RoleBuyStoreFlow` add column `iConsumeCnt2` int(10) after `iConsumeId2`;
+
+#!/bin/bash
+
+for file in ./*
+do
+    echo "$file"
+    tar -czf $file.tar.gz $file
+    sleep 1
+    rm $file
+    sleep 1
+done
+
+ls tlogbk.log.2018-0[1-3]-[0-9][0-9]* |nohup xargs -n 1 -P 6 gzip &
+
+select iGameSvrId,dtEventTime,iEventId,iArg2,vConsumeItems from RoleEventFlow where dtEventTime > '2018-04-18 11:30:00' and dtEventTime < '2018-04-18 14:40:00' and iEventId in (421,422) into outfile '/data/mysql-files/0418.txt';
+
+ com.joypiegame.authserver.web.LongtuKkPayServlet request params: appid=1020016, serverid=20017, uid=9316773, orderid=1804181146160813426, item=com.longtukorea.yulgang.pkg031, payext=2001_17017096_14, sign=d78d9c412a3770eed1c344a9bb42944c -->  errCode = -3
+2018-04-18 12:10:26 : com.joypiegame.authserver.web.LongtuKkPayServlet request params: appid=1021016, serverid=20010, uid=9376545, orderid=1804181210146442980, item=0910097430, payext=2802_10032067_14, sign=a2cc264100731efa5a03c195fff76be6 -->  errCode = -3
+2018-04-18 12:11:39 : com.joypiegame.authserver.web.LongtuKkPayServlet request params: appid=1021016, serverid=20034, uid=9552999, orderid=1804181214061465896, item=0910097430, payext=2802_34000046_14, sign=b9049bf2b78b11be27ebc8baa4661301 -->  errCode = -3
+
+
+1.登陆管理服  119.28.151.113  tomcat   RQ0SE]NF_z3[h3
+2.cd /home/tomcat/rxjh/deployScripts/
+3.活动文件上传到这个目录 解压缩覆盖activities目录下面的旧的活动文件
+4.执行./updateActivities.sh all更新所有服务器的活动(执行./updateActivities.sh ** (**)为服务器ID 1-39更新单独一个服的活动)
+
+select dtEventTime,iGameSvrId,iRoleId,iPayId,iPayLvl,iAddDiamondF from RolePayFlow where dtEventTime > '2018-04-19 16:29:30' and dtEventTime < '2018-04-19 16:57:00' into outfile '/data/mysql-files/0419.txt';
+
+
+1.停服
+2.执行  updateFiles.sh
+3.开白名单
+4.cfgserver  ~/rxjh/apache-tomcat-7.0.68/appcfg/cfg目录 删除versionjump.xml并将versionjump.xml.new重命名versionjump.xml
+5.cfgserver  akakao目录执行 update20050.sh
+6.cfgserver  ilongtu目录执行 update20050.sh
+7.开服
+8.测试
+9.关白名单
+
+
+如果明天更新完之后 新包还是连的提审服务器就是3**的服务器
+你就让运维删除cfgserver
+akakao目录里面的gameservers.20061.xml  gameservers.20062.xml  version.20061.txt  version.20062.txt 软连接
+ilongtu目录里面的gameservers.20060.xml  version.20060.txt  软连接
+
+
+地震鲶  书丑双吞陆生
+
+
+select * from RoleSysMailFlow where iMailType = 35 and dtEventTime > '2018-08-23' and dtEventTime < '2018-08-24' and iEventType = 0 into outfile '/data/mysql-files/0824.txt';
+
+select * from RoleEventFlow where dtEventTime > '2018-08-17' and iRoleId = 4006227 and (vConsumeItems like '*13_*' or vProduceItems like '*13_*');
+
+
+java -Xmx1G -classpath .;lib\kutil.jar;lib\kio.jar;lib\kdb.jar;lib\gs.jar;lib\log4j-1.2.16.jar;lib\mysql-connector-java-5.1.25-bin.jar;lib\org.json.jar i3k.gs.IDIPService
+
+scp -3 A:/src/a.txt   B:/dst
+
+//下载文件
+package test;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class DownloadFile {
+
+    public static void downloadFileFromUrl(String fileUrl, String fileName, String savePath) throws Exception
+    {
+        // 获取连接
+        URL url = new URL(fileUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setConnectTimeout(5 * 1000);
+        // 设置请求头
+        connection.setRequestProperty("User-Agent",
+                "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.110 Safari/537.36");
+        // 获取输入流
+        InputStream in = connection.getInputStream();
+
+        File saveDir = new File(savePath);
+        if ( !saveDir.exists() )
+        {
+            saveDir.mkdirs();
+        }
+        File file = new File(savePath + fileName);
+
+        OutputStream out = new FileOutputStream(file);
+
+        byte[] bytes = new byte[1024];
+        int len = 0;
+        while ((len = in.read(bytes)) != -1)
+        {
+            out.write(bytes, 0, len);
+        }
+        out.close();
+        in.close();
+        System.out.println(fileName + " 下载完毕");
+    }
+
+    public static void main(String[] args)
+    {
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        try
+        {
+
+            for (int i = 0; i < 97; i++)
+            {
+                String index = String.valueOf(i);
+                if ( i < 10 )
+                {
+                    index = "0" + index;
+                }
+                final String urlFile = "index" + i + ".ts";
+                final String fileName = "index" + index + ".ts";
+                Runnable r = new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            downloadFileFromUrl("https://vip.16dy.com/700252/" + urlFile, fileName, "D:\\1\\");
+                            System.out.println(fileName + "执行完毕");
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                executor.execute(r);
+            }
+
+        }
+        catch (Exception e)
+        {
+
+        }finally {
+            executor.shutdown();
+        }
+    }
+}
+
+//下载文件
+
+
+IDIPService.CommandResponse<IDIP.DoChageHideWeaponSkillLvlRsp> res = service.doChageHideWeaponSkillLvl(1, roleId, wid, skillID, skillLvl);
+        System.out.println(res.header.errMsg);
+
+
+@#add 67708 10
+@#add 67709 10
+@#add 66936 1
+@#add 66690 1
+@#add 66123 1
+@#add 66718 100000
+
+
+<script type="text/javascript">function add_chatinline(){var hccid=28298972;var nt=document.createElement("script");nt.async=true;nt.src="https://mylivechat.com/chatinline.aspx?hccid="+hccid;var ct=document.getElementsByTagName("script")[0];ct.parentNode.insertBefore(nt,ct);}
+add_chatinline(); </script>
+
+
+#!/bin/bash
+gsid=`grep -A 3 GameServer ~/rxjh/game/gs/gs.cfg | grep id | awk '{print $NF}'`
+echo -e "\c" > result.txt
+cat ~/rxjh/game/gs/log/gs.log.2018-12-0[4-9]* | grep 'bind partner code the' |awk -F 'is' '{sub(/[^0-9]+/,"",$2);print "'$gsid'"substr($1,6,20)"\t"$2"\t"$3}' >> result.txt
+cat ~/rxjh/game/gs/log/gs.log.2018-12-1[0-1]* | grep 'bind partner code the' |awk -F 'is' '{sub(/[^0-9]+/,"",$2);print "'$gsid'"substr($1,6,20)"\t"$2"\t"$3}' >> result.txt
+
+
+#!/bin/bash
+
+function processOneServer(){
+    line=$1
+
+    ret=`scp ${sqlfile} tomcat@${line}:/home/tomcat/${sqlfile}`
+    if [ -z "$ret" ]; then
+        echo "scp to ${line} success"
+    else
+        echo $ret
+    fi
+    if [ "$rmlastresultfile" -eq 1 ];then
+        ret=`ssh tomcat@${line} "rm ${resultfile}"`
+
+        if [ -z "$ret" ]; then
+            echo "resultfile clean ${line} success"
+        else
+            echo $ret
+        fi
+    fi
+
+    ret=`ssh tomcat@${line} "chmod u+x ${sqlfile}"`
+
+    if [ -z "$ret" ]; then
+        echo "chmod exe to ${sqlfile} success"
+    else
+        echo $ret
+    fi
+
+    ret=`ssh tomcat@${line} "sh ${sqlfile}"`
+
+    if [ -z "$ret" ]; then
+        echo " exe ${sqlfile} success"
+    else
+        echo $ret
+    fi
+
+    result=`echo $resultfile | awk -F / '{print $NF}'`
+    ret=`scp tomcat@${line}:${resultfile} ./${line}_${result}`
+
+    if [ -z "$ret" ]; then
+        echo "scp from ${line} success"
+    else
+        echo $ret
+    fi
+
+    ret=`ssh tomcat@${line} "rm ${sqlfile}"`
+
+    if [ -z "$ret" ]; then
+        echo " clean ${line} success"
+    else
+        echo $ret
+    fi
+
+}
+
+
+sqlfile="findlog.sh"
+#resultfile=`grep "/data/" $sqlfile | awk -F / '{print $NF}' |egrep -o "[a-z0-9.]+"`
+resultfile=`grep "echo" findlog.sh | awk -F "> "  '{print $2}'`
+rmlastresultfile=$1
+ips=`awk '{ print $1}' gsips.txt`
+
+if [ ! -n "$rmlastresultfile" ];then
+    echo "arg is null; 1 is rm resultfile, other numbers is not rm resultfile"
+    exit
+elif [ "$rmlastresultfile" -ne 1 ];then
+    rmlastresultfile=0
+fi
+
+for ip in $ips
+do
+    if [ ${ip:0:1} == "#" ]; then
+        continue
+    fi
+    processOneServer ${ip} &
+done
+wait
+echo "done"
+
+
+商户注册成功！商户ID：2627
+商户KEY：r3a3VBGAfrGQCb3qiJ3A3ZV2w2wodvXZ
+
+
+RoleEventFlow|2019-01-21 00:55:33|47776463|20004|1020016|9962939|2001|9962939|5036493|92|5|579|65715_-1_2735,67255_-4_1||2|0|0|0|{1001=1400, 1002=184, 1003=97, 1004=49, 1005=46, 1006=38, 1007=29}
+
+
+0542
+
+XDZ#0542#北京#北京市#朝阳区创远路36号院1号楼5层#100042
+
+
+
+台湾\新马中文 610  姐妹服  106.3.137.40 192.168.13.3     /home/tomcat/rxjh/deployScript610_tw
+香港          650  姐妹服  106.3.137.40 192.168.13.3     /home/tomcat/rxjh/deployScript610_hk
+新马英文      630  姐妹服  106.3.137.40 192.168.13.3     /home/tomcat/rxjh/deployScript610_sg
+
+新马\台湾ios          710  提审服  106.3.137.46   192.168.13.46  /home/tomcat/rxjh/deployScripts710
+新马\台湾安卓         720  提审服  106.3.137.46   192.168.13.46  /home/tomcat/rxjh/deployScripts720
+香港ios          710  提审服  118.193.30.60  10.240.1.253   /home/tomcat/rxjh/deployScripts710
+香港安卓         720  提审服  118.193.30.60  10.240.1.253   /home/tomcat/rxjh/deployScripts720
+
+
+新马中文 管理服  164.52.72.201   10.240.8.12
+台湾     管理服  164.52.22.10    10.240.0.10
+香港     管理服  118.193.30.17   10.240.1.17
+
+更新CDN和CFG：
+1.台湾和新马中文公用同一份CDN资源和CFG配置，所以只需要更新台湾的就可以了
+2.香港的CDN资源和CFG配置需要单独更新
+
+更新服务器
+1.台湾和新马的GS.JAR，servercfg，活动都是不一样的需要单独更新
+2.香港的需要单独更新
+
+姐妹服更新流程：
+1.上传path
+    在.8服务器上面找到相应的path文件，传到CDN服务器的对应目录kdist，上传解压（注意不要覆盖）即可（解压完后可以删除压缩包）
+2.更新version
+    在.8服务器上面找到对应的version文件，更新cfg服务器目录里面对应的version
+3.更新服务器
+    在.8服务器上面找到updatefiles文件，上传到对应的deployScript文件夹下，解压覆盖执行脚本更新
+
+
+
+  890  ll
+  891  ./mviosPatch.sh
+  892  ./mvandroidPatch.sh
+  893  ll
+  894  cd kdist/ios/
+  895  ll
+  896  unzip patch-ios-137973taiwan-139586taiwan.zip
+  897  unzip patch-ios-139417taiwan-139586taiwan.zip
+  898  rm patch-ios-13*
+  899  cd ../android/
+  900  ll
+  901  unzip patch-android-ob-137973taiwan-139586taiwan.zip
+  902  unzip patch-android-ob-139417taiwan-139586taiwan.zip
+  903  rm patch-android-ob-13*
+  904  exit
+
+
+    852  ./mvandroidPatch.sh
+  853  ./mviosPatch.sh
+  854  cd rxjh/kdist/ios/
+  855  unzip patch-ios-111196hongkong-136353hongkong.zip
+  856  unzip patch-ios-136260hongkong-136353hongkong.zip
+  857  rm patch-ios-1*
+  858  cd ../android/
+  859  ll
+  860  unzip patch-android-ob-111196hongkong-136353hongkong.zip
+  861  unzip patch-android-ob-136260hongkong-136353hongkong.zip
+  862  rm patch-android-ob-1*
+  863  ll
+  864  cd ..
+  865  cd ios/
+  866  ll
+  867  exit
+
+
+
+
+gsids=`grep -v "^#" ~/rxjh/deployScripts/cfg_gen/GS.txt | cut -sd' ' -f 3`
+for i in $gsids
+do
+    zones=`ssh tomcat@$i "grep zone ~/rxjh/game/gs/gs.cfg | cut -sd'=' -f 2"`
+    tlog=`ssh tomcat@$i "grep -A 2 TLog ~/rxjh/game/gs/gs.cfg |grep host "`
+    echo $zones $tlog
+done
+
+idea plugins
+ activate-power-mode
+ codeglance
+ grep console
+ key promoter x
+ material theme ui
+ rainbow brackets
+ rainglow color schemes
+ translation
+
+windows software
+ listary
+ xyplorer
+ displayfusion
+
+
+https://dadi-yun.com/20190305/1826_4d2ec220/800k/hls/index.m3u8
+
+800k/hls/index.m3u8
+
+[AuthClient]
+#连接地址和端口列表，竖线|分割，地址和端口之间:分割
+hosts = 172.29.0.14:9100|172.29.0.5:9100
+
+25bc1ab9bec09bbef52e5c2ffe572a1603a7bbaf
